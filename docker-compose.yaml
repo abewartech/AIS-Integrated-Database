@@ -3,18 +3,17 @@ services:
   # ---------------------------------------------
   # PROCESSING CHAIN: to do the actual work
   # ---------------------------------------------
-  file_source:
+  file_reader:
     # Reads a folder full of daily AIS logs, decodes them and feeds them onto a rabbitmq topic 
       build:
-          context: ./file_streamer
-          dockerfile: Dockerfile
-      hostname: file_streamer
+        context: ./build/file_streamer
+        dockerfile: Dockerfile
+      hostname: file_reader
       env_file:
         - .env  #This both the docker-compose env file (to set ports names, image tags etc) and the internal container config (handles passwords, ports to connect to etc.)
       volumes:
-      #- setup volumes to store logfiles
         #  - /etc/localtime:/etc/localtime:ro #This is useful in Linux, doesn't work on Windows. 
-          - ./volumes/small_data/:${CONTAINER_FILE_DIR} 
+        - ./volumes/data/ais/:${CONTAINER_FILE_DIR}
       command: python /usr/local/file_streamer/main.py  -ll 'INFO' 
   
   rabbit:
@@ -28,6 +27,9 @@ services:
     environment: 
         RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
         RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    # volumes:
+      # - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
+      # - ./volumes/rabbitmq/etc/:/etc/rabbitmq/
     restart: unless-stopped
     logging:
       driver: json-file
@@ -40,15 +42,14 @@ services:
   # insert every single message alone.  
     # Reads a folder full of daily AIS logs, decodes them and feeds them onto a rabbitmq topic 
     build:
-      context: ./db_inserter
+      context: ./build/db_inserter
       dockerfile: Dockerfile
     hostname: db_inserter
     env_file:
       - .env  #This both the docker-compose env file (to set ports names, image tags etc) and the internal container config (handles passwords, ports to connect to etc.)
-    volumes:
-    #- setup volumes to store logfiles
+    # volumes:
       #  - /etc/localtime:/etc/localtime:ro #This is useful in Linux, doesn't work on Windows. 
-    command: python /usr/local/db_inserter/main.py  -ll 'INFO' 
+    command: python /usr/local/db_inserter/main.py -ll 'INFO' 
         
   db:
   # The database that holds all the AIS data and maybe some other nice to have's like:
@@ -57,6 +58,7 @@ services:
   # The schema is also set up in the start up scripts. 
   # https://hub.docker.com/r/timescale/timescaledb-postgis/tags
     container_name: db
+    hostname: ${DB_HOST}
     image: timescale/timescaledb-postgis:${TIMESCALE_TAG}
     command: postgres -c shared_preload_libraries=timescaledb
     ports:
@@ -65,20 +67,36 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_UID=${UID}
+      - POSTGRES_GID=${GID}
     volumes:
-      - ./volumes/db/:/var/lib/postgresql
-      - ./volumes/db_init:/docker-entrypoint-initdb.d/ 
-      - ./volumes/db_init_data/:/tmp
+      - ./volumes/db/:/var/lib/postgresql/data
+      - ./build/db/db_init:/docker-entrypoint-initdb.d/ 
+      - ./build/db/db_init_data/:/tmp
     restart: unless-stopped
     logging:
       driver: json-file
       options:
         max-size: 10m
   
+  # postgrest:
+  #   # Postgrest container. Provides API to DB
+  #   # https://postgrest.org/en/stable/install.html 
+  #   #
+  #   image: postgrest/postgrest:${POSTGREST_TAG}
+  #   ports:
+  #     - ${POSTGREST_PORT}:3000
+  #   environment:
+  #     PGRST_DB_URI: postgres://${API_USER}:${APU_USER_PW}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}
+  #     PGRST_DB_SCHEMA: public
+  #     PGRST_DB_ANON_ROLE: app_user #In production this role should not be the same as the one used for the connection
+  #   depends_on:
+  #     - db
+
   # ---------------------------------------------
   # USER TOOLS: to make your life easier
   # ---------------------------------------------
-  pg_admin:
+  pgadmin:
   # Method to interrogate the DB
     container_name: pgadmin_phd
     image: dpage/pgadmin4:${PGADMIN_TAG}
@@ -86,7 +104,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
-        - ./volumes/db/:/root/.pgadmin
+        - ./volumes/pgadmin/:/root/.pgadmin
     ports:
       - ${PGADMIN_PORT}:80
     restart: unless-stopped
@@ -94,26 +112,22 @@ services:
       driver: json-file
       options:
         max-size: 10m
-
-  # elastic_search:
-    # Let's try this bad bouy out.
-    # Running it in a seeprate compose file for testing.
-
-  jup-notebook:
-    # Has all the libs installed for datascience. Make sure to save your work under joyvan/work/<some dir> to have
-    # it persist between shutdowns
-    image: jupyter/datascience-notebook 
-    volumes:
-      - ./volumes/jupyter:/home/jovyan/work
-    ports:
-      - $jupyter_port:8888
-      - 8787:8787
-    container_name:   jup-notebook
-    restart: unless-stopped
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
+ 
+  # jup-notebook:
+  #   # Has all the libs installed for datascience. Make sure to save your work under joyvan/work/<some dir> to have
+  #   # it persist between shutdowns
+  #   image: jupyter/datascience-notebook:${JUP_TAG}
+  #   volumes:
+  #     - ./volumes/jupyter:/home/jovyan/work
+  #   ports:
+  #     - ${JUP_PORT}:8888
+  #     - 8787:8787
+  #   container_name:   jup-notebook
+  #   restart: unless-stopped
+  #   logging:
+  #     driver: json-file
+  #     options:
+  #       max-size: 10m
 
   # geoserver:
   #   image: kartoza/geoserver:${GEOSERVER_TAG} 
