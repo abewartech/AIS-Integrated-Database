@@ -1,0 +1,101 @@
+AIS Num,Description,Type ,Sub Type,Abrv
+0,Not Available,Not Available,Not Available,NA
+1,Reserved,Reserved,Reserved,RES
+2,Reserved,Reserved,Reserved,RES
+3,Reserved,Reserved,Reserved,RES
+4,Reserved,Reserved,Reserved,RES
+5,Reserved,Reserved,Reserved,RES
+6,Reserved,Reserved,Reserved,RES
+7,Reserved,Reserved,Reserved,RES
+8,Reserved,Reserved,Reserved,RES
+9,Reserved,Reserved,Reserved,RES
+10,Reserved,Reserved,Reserved,RES
+11,Reserved,Reserved,Reserved,RES
+12,Reserved,Reserved,Reserved,RES
+13,Reserved,Reserved,Reserved,RES
+14,Reserved,Reserved,Reserved,RES
+15,Reserved,Reserved,Reserved,RES
+16,Reserved,Reserved,Reserved,RES
+17,Reserved,Reserved,Reserved,RES
+18,Reserved,Reserved,Reserved,RES
+19,Reserved,Reserved,Reserved,RES
+20,"Wing in ground (WIG), all ships of this type",Wing in ground,All Types,WIG
+21,"Wing in ground (WIG), Hazardous category A",Wing in ground,Hazardous Category A,WIG
+22,"Wing in ground (WIG), Hazardous category B",Wing in ground,Hazardous Category B,WIG
+23,"Wing in ground (WIG), Hazardous category C",Wing in ground,Hazardous Category C,WIG
+24,"Wing in ground (WIG), Hazardous category D",Wing in ground,Hazardous Category D,WIG
+25,"Wing in ground (WIG), Reserved for future use",Wing in ground,Reserved,WIG
+26,"Wing in ground (WIG), Reserved for future use",Wing in ground,Reserved,WIG
+27,"Wing in ground (WIG), Reserved for future use",Wing in ground,Reserved,WIG
+28,"Wing in ground (WIG), Reserved for future use",Wing in ground,Reserved,WIG
+29,"Wing in ground (WIG), Reserved for future use",Wing in ground,Reserved,WIG
+30,Fishing,Fishing,,FSH
+31,Towing,Towing,,TOW
+32,Towing: length exceeds 200m or breadth exceeds 25m,Large Towing,,TOW
+33,Dredging or underwater ops,Dredging,,DRG
+34,Diving ops,Diving,,DIV
+35,Military ops,Military,,MIL
+36,Sailing,Sailing,,SAL
+37,Pleasure Craft,Pleasure Craft,,PLS
+38,Reserved,Reserved,,RES
+39,Reserved,Reserved,,RES
+40,"High speed craft (HSC), all ships of this type",High Speed Craft,All Types,HSC
+41,"High speed craft (HSC), Hazardous category A",High Speed Craft,Hazardous Category A,HSC
+42,"High speed craft (HSC), Hazardous category B",High Speed Craft,Hazardous Category B,HSC
+43,"High speed craft (HSC), Hazardous category C",High Speed Craft,Hazardous Category C,HSC
+44,"High speed craft (HSC), Hazardous category D",High Speed Craft,Hazardous Category D,HSC
+45,"High speed craft (HSC), Reserved for future use",High Speed Craft,Reserved,HSC
+46,"High speed craft (HSC), Reserved for future use",High Speed Craft,Reserved,HSC
+47,"High speed craft (HSC), Reserved for future use",High Speed Craft,Reserved,HSC
+48,"High speed craft (HSC), Reserved for future use",High Speed Craft,Reserved,HSC
+49,"High speed craft (HSC), No additional information",High Speed Craft,All Types,HSC
+50,Pilot Vessel,Pilot,,PIL
+51,Search and Rescue vessel,S&R,,S&R
+52,Tug,Tug,,TUG
+53,Port Tender,Port Tender,,PRT
+54,Anti-pollution equipment,Anti-pollution equipment,,APE
+55,Law Enforcement,Law Enforcement,,LAW
+56,Spare - Local Vessel,Spare,,RES
+57,Spare - Local Vessel,Spare,,RES
+58,Medical Transport,Medical Transport,,MED
+59,Noncombatant ship according to RR Resolution No. 18,Non-combat,,NCS
+60,"Passenger, all ships of this type",Passenger,All Types,PAS
+61,"Passenger, Hazardous category A",Passenger,Hazardous Category A,PAS
+62,"Passenger, Hazardous category B",Passenger,Hazardous Category B,PAS
+63,"Passenger, Hazardous category C",Passenger,Hazardous Category C,PAS
+64,"Passenger, Hazardous category D",Passenger,Hazardous Category D,PAS
+65,"Passenger, Reserved for future use",Passenger,Reserved,PAS
+66,"Passenger, Reserved for future use",Passenger,Reserved,PAS
+67,"Passenger, Reserved for future use",Passenger,Reserved,PAS
+68,"Passenger, Reserved for future use",Passenger,Reserved,PAS
+69,"Passenger, No additional information",Passenger,All Types,PAS
+70,"Cargo, all ships of this type",Cargo,All Types,CAR
+71,"Cargo, Hazardous category A",Cargo,Hazardous Category A,CAR
+72,"Cargo, Hazardous category B",Cargo,Hazardous Category B,CAR
+73,"Cargo, Hazardous category C",Cargo,Hazardous Category C,CAR
+74,"Cargo, Hazardous category D",Cargo,Hazardous Category D,CAR
+75,"Cargo, Reserved for future use",Cargo,Reserved,CAR
+76,"Cargo, Reserved for future use",Cargo,Reserved,CAR
+77,"Cargo, Reserved for future use",Cargo,Reserved,CAR
+78,"Cargo, Reserved for future use",Cargo,Reserved,CAR
+79,"Cargo, No additional information",Cargo,All Types,CAR
+80,"Tanker, all ships of this type",Tanker,All Types,TNK
+81,"Tanker, Hazardous category A",Tanker,Hazardous Category A,TNK
+82,"Tanker, Hazardous category B",Tanker,Hazardous Category B,TNK
+83,"Tanker, Hazardous category C",Tanker,Hazardous Category C,TNK
+84,"Tanker, Hazardous category D",Tanker,Hazardous Category D,TNK
+85,"Tanker, Reserved for future use",Tanker,Reserved,TNK
+86,"Tanker, Reserved for future use",Tanker,Reserved,TNK
+87,"Tanker, Reserved for future use",Tanker,Reserved,TNK
+88,"Tanker, Reserved for future use",Tanker,Reserved,TNK
+89,"Tanker, No additional information",Tanker,All Types,TNK
+90,"Other Type, all ships of this type",Other,All Types,OTH
+91,"Other Type, Hazardous category A",Other,Hazardous Category A,OTH
+92,"Other Type, Hazardous category B",Other,Hazardous Category B,OTH
+93,"Other Type, Hazardous category C",Other,Hazardous Category C,OTH
+94,"Other Type, Hazardous category D",Other,Hazardous Category D,OTH
+95,"Other Type, Reserved for future use",Other,Reserved,OTH
+96,"Other Type, Reserved for future use",Other,Reserved,OTH
+97,"Other Type, Reserved for future use",Other,Reserved,OTH
+98,"Other Type, Reserved for future use",Other,Reserved,OTH
+99,"Other Type, no additional information",Other,All Types,OTH
