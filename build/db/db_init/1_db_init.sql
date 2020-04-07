@@ -46,7 +46,7 @@ SELECT create_hypertable('ais.pos_reports', 'event_time');
 -- How to index a hypertable 
 -- https://docs.timescale.com/latest/using-timescaledb/schema-management#indexing
 
-CREATE INDEX ON ais.test (ais.mmsi, ais.event_time desc);
+CREATE INDEX ON ais.test (mmsi, event_time desc);
 
 CREATE INDEX ON ais.test USING GIST(position);
 
@@ -80,7 +80,7 @@ CREATE TABLE ais.voy_reports
 
 SELECT create_hypertable('ais.voy_reports', 'event_time');
 
-CREATE INDEX ON ais.voy_reports (ais.mmsi, ais.event_time desc);
+CREATE INDEX ON ais.voy_reports (mmsi, event_time desc);
 
 COMMIT;
 -----------------------------------------------------------------------
