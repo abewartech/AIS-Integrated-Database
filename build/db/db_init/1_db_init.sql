@@ -8,8 +8,6 @@
 -----------------------------------------------------------------------
 
 BEGIN;
---RAISE NOTICE 'Creating PostGIS Extenstion';
-CREATE EXTENSION postgis;
 
 -- geo schema will hold spatial data like eez, mpa etc
 -- that gets loaded from shapefiles from the .sh script that gets called
@@ -18,28 +16,11 @@ CREATE SCHEMA geo;
 -- ais schema holds ais data in the same format as previously
 CREATE SCHEMA ais;
 
--- Create trigger to auto-partition the table's
-CREATE FUNCTION ais.create_partition_and_insert()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF 
-AS $BODY$
-    DECLARE
-      partition_date TEXT;
-      partition TEXT;
-    BEGIN
-      partition_date := to_char(NEW.event_time,'YYYY_MM');
-      partition := TG_RELNAME || '_' || partition_date;
-      IF NOT EXISTS(SELECT relname FROM pg_class WHERE relname=partition) THEN
-        RAISE NOTICE 'A new partition is being created %',partition;
-        EXECUTE 'CREATE TABLE ' || partition || ' (check (EXTRACT(MONTH FROM event_time) = EXTRACT(MONTH FROM TIMESTAMP ''' || NEW.event_time || ''')), 
-        check (EXTRACT(YEAR FROM event_time) = EXTRACT(YEAR FROM TIMESTAMP ''' || NEW.event_time || '''))) INHERITS (' || TG_RELNAME || ');';
-      END IF;
-      EXECUTE 'INSERT INTO ' || partition || ' SELECT(' || TG_RELNAME || ' ' || quote_literal(NEW) || ').* RETURNING id;';
-      RETURN NULL;
-    END;
-$BODY$;
+--RAISE NOTICE 'Creating PostGIS Extenstion';
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+--RAISE NOTICE 'Creating TimescaleDB Extenstion';
+CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- pos_reports holds AIS position reports
 CREATE TABLE ais.pos_reports
@@ -59,12 +40,17 @@ CREATE TABLE ais.pos_reports
     routing_key text COLLATE pg_catalog."default",
     id serial PRIMARY KEY
 );
+
+SELECT create_hypertable('ais.pos_reports', 'event_time');
+
 CREATE INDEX ais_ves_pos
     ON ais.pos_reports USING gist
     (position);
+
 CREATE INDEX pos_reports_event_time
     ON ais.pos_reports USING btree
     (event_time);
+
 CREATE INDEX pos_report_mmsi_idx
     ON ais.pos_reports USING btree
     (mmsi COLLATE pg_catalog."default");
@@ -95,6 +81,9 @@ CREATE TABLE ais.voy_reports
     routing_key text COLLATE pg_catalog."default",
     id serial PRIMARY KEY
 );
+
+SELECT create_hypertable('ais.voy_reports', 'event_time');
+
 CREATE INDEX voyage_report_event_time_idx
     ON ais.voy_reports USING btree
     (event_time);

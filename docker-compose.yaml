@@ -104,7 +104,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
-        - ./volumes/pgadmin/:/root/.pgadmin
+        - ./volumes/pgadmin/:/var/lib/pgadmin
     ports:
       - ${PGADMIN_PORT}:80
     restart: unless-stopped
