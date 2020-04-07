@@ -38,7 +38,7 @@ CREATE TABLE ais.pos_reports
     server_time timestamp with time zone NOT NULL,
     msg_type character varying(3) COLLATE pg_catalog."default", 
     routing_key text COLLATE pg_catalog."default",
-    id serial PRIMARY KEY
+    -- id serial PRIMARY KEY -- For some reason TimescaleDB doesn't like having primary keys in the hypertable. Luckily we don't really use it anyway...
 );
 
 SELECT create_hypertable('ais.pos_reports', 'ais.pos_reports.event_time');
@@ -46,9 +46,9 @@ SELECT create_hypertable('ais.pos_reports', 'ais.pos_reports.event_time');
 -- How to index a hypertable 
 -- https://docs.timescale.com/latest/using-timescaledb/schema-management#indexing
 
-CREATE INDEX ais_ves_pos_mmsi_idx (ais.mmsi, ais.event_time desc);
+CREATE INDEX ON ais.test (ais.mmsi, ais.event_time desc);
 
-CREATE INDEX ais_pos_idx USING GIST(event_time desc, position);
+CREATE INDEX ON ais.test USING GIST(position);
 
 -----------------------------------------------------------------------------------
 -- voy_reports holds AIS position reports
@@ -75,19 +75,13 @@ CREATE TABLE ais.voy_reports
     server_time timestamp with time zone NOT NULL,
     msg_type character varying(3) COLLATE pg_catalog."default", 
     routing_key text COLLATE pg_catalog."default",
-    id serial PRIMARY KEY
+    -- id serial PRIMARY KEY
 );
 
 SELECT create_hypertable('ais.voy_reports', 'ais.voy_reports.event_time');
 
-CREATE INDEX voyage_report_event_time_idx
-    ON ais.voy_reports USING btree
-    (event_time);
- 
-CREATE INDEX voyage_report_mmsi_idx
-    ON ais.voy_reports USING btree
-    (mmsi COLLATE pg_catalog."default");
-    
+CREATE INDEX ON ais.voy_reports (ais.mmsi, ais.event_time desc);
+
 COMMIT;
 -----------------------------------------------------------------------
 -- Load some AIS helper tables from CSV's
