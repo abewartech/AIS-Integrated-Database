@@ -97,8 +97,8 @@ services:
   # USER TOOLS: to make your life easier
   # ---------------------------------------------
   pgadmin:
-  # Method to interrogate the DB
     container_name: pgadmin_phd
+    # Method to interrogate the DB
     image: dpage/pgadmin4:${PGADMIN_TAG}
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}

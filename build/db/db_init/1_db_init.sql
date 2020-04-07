@@ -41,7 +41,7 @@ CREATE TABLE ais.pos_reports
     id serial PRIMARY KEY
 );
 
-SELECT create_hypertable('ais.pos_reports', 'event_time');
+SELECT create_hypertable('ais.pos_reports', 'ais.pos_reports.event_time');
 
 -- How to index a hypertable 
 -- https://docs.timescale.com/latest/using-timescaledb/schema-management#indexing
@@ -78,7 +78,7 @@ CREATE TABLE ais.voy_reports
     id serial PRIMARY KEY
 );
 
-SELECT create_hypertable('ais.voy_reports', 'event_time');
+SELECT create_hypertable('ais.voy_reports', 'ais.voy_reports.event_time');
 
 CREATE INDEX voyage_report_event_time_idx
     ON ais.voy_reports USING btree
