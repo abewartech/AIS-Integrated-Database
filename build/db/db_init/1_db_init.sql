@@ -74,7 +74,7 @@ CREATE TABLE ais.voy_reports
     event_time timestamp with time zone NOT NULL,
     server_time timestamp with time zone NOT NULL,
     msg_type character varying(3) COLLATE pg_catalog."default", 
-    routing_key text COLLATE pg_catalog."default",
+    routing_key text COLLATE pg_catalog."default"
     -- id serial PRIMARY KEY
 );
 
