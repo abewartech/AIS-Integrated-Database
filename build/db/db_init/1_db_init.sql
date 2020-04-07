@@ -43,18 +43,14 @@ CREATE TABLE ais.pos_reports
 
 SELECT create_hypertable('ais.pos_reports', 'event_time');
 
-CREATE INDEX ais_ves_pos
-    ON ais.pos_reports USING gist
-    (position);
+-- How to index a hypertable 
+-- https://docs.timescale.com/latest/using-timescaledb/schema-management#indexing
 
-CREATE INDEX pos_reports_event_time
-    ON ais.pos_reports USING btree
-    (event_time);
+CREATE INDEX ais_ves_pos_mmsi_idx (mmsi, event_time desc);
 
-CREATE INDEX pos_report_mmsi_idx
-    ON ais.pos_reports USING btree
-    (mmsi COLLATE pg_catalog."default");
+CREATE INDEX ais_pos_idx USING GIST(event_time desc, position);
 
+-----------------------------------------------------------------------------------
 -- voy_reports holds AIS position reports
 CREATE TABLE ais.voy_reports
 (
