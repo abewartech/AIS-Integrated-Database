@@ -103,8 +103,6 @@ services:
       options:
         max-size: 10m
 
-      - db
-
   # ---------------------------------------------
   # USER TOOLS: to make your life easier
   # ---------------------------------------------
