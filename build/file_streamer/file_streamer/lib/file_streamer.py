@@ -121,17 +121,21 @@ def file_streamer(CFG):
         with open(os.path.join(file_folder,data_file), "r") as open_file:
             for line in open_file:
                 line_count += 1
-                parsed_line = parse_decode(line)
-                if parsed_line.get('frag_count') == '1':
-                    decoded_line = single_decode(parsed_line)
-                else:
-                    next_line = open_file.readline()
-                    parsed_next_line = parse_decode(next_line)
-                    decoded_line = multi_decode(parsed_line, parsed_next_line)
+                try:
+                    parsed_line = parse_decode(line)
+                    if parsed_line.get('frag_count') == '1':
+                        decoded_line = single_decode(parsed_line)
+                    else:
+                        next_line = open_file.readline()
+                        parsed_next_line = parse_decode(next_line)
+                        decoded_line = multi_decode(parsed_line, parsed_next_line)
 
-                decoded_line['routing_key'] = CFG.get('routing_key')
-                decoded_line['event_time'] = datetime.datetime.fromtimestamp(int(parsed_line.get('event_time'))).isoformat()
-                log.debug(decoded_line)
+                    decoded_line['routing_key'] = CFG.get('routing_key')
+                    decoded_line['event_time'] = datetime.datetime.fromtimestamp(int(parsed_line.get('event_time'))).isoformat()
+                    log.debug(decoded_line)
+                except:
+                    log.warning('Problem with parsing and decoding line: {0}'.format(line))
+                    continue
 
                 try:                         
                     if decoded_line.get('id') in [1,2,3,5,9,18,19]:
