@@ -42,6 +42,7 @@ AS
     last(pos_reports."position", pos_reports.event_time) AS "position",
     last(pos_reports.cog, pos_reports.event_time) AS cog,
     last(pos_reports.sog, pos_reports.event_time) AS sog,
+    last(pos_reports.navigation_status, pos_reports.event_time) AS nav_status,    
     avg(pos_reports.cog) AS avg_cog,
     avg(pos_reports.sog) AS avg_sog,
     max(pos_reports.cog) AS max_cog,
