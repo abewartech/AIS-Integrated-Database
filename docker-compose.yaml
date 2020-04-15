@@ -106,22 +106,22 @@ services:
   # ---------------------------------------------
   # USER TOOLS: to make your life easier
   # ---------------------------------------------
-  pgadmin:
-    container_name: pgadmin_phd
-    # Method to interrogate the DB
-    image: dpage/pgadmin4:${PGADMIN_TAG}
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    volumes:
-        - ./volumes/pgadmin/:/var/lib/pgadmin
-    ports:
-      - ${PGADMIN_PORT}:80
-    restart: unless-stopped
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
+  # pgadmin:
+  #   container_name: pgadmin_phd
+  #   # Method to interrogate the DB
+  #   image: dpage/pgadmin4:${PGADMIN_TAG}
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+  #   volumes:
+  #       - ./volumes/pgadmin/:/var/lib/pgadmin
+  #   ports:
+  #     - ${PGADMIN_PORT}:80
+  #   restart: unless-stopped
+  #   logging:
+  #     driver: json-file
+  #     options:
+  #       max-size: 10m
  
   # jup-notebook:
   #   # Has all the libs installed for datascience. Make sure to save your work under joyvan/work/<some dir> to have

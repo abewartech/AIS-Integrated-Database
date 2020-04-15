@@ -1,9 +1,12 @@
 
 BEGIN;
 
-DROP VIEW IF EXISTS vessel_details_cagg CASCADE;
-CREATE VIEW vessel_details_cagg WITH
-(timescaledb.continuous, timescaledb.refresh_interval = '30m')
+DROP VIEW IF EXISTS ais.vessel_details_cagg CASCADE;
+CREATE VIEW ais.vessel_details_cagg WITH
+(timescaledb.continuous, 
+timescaledb.refresh_interval = '30m', 
+timescaledb.refresh_lag = '30m',
+timescaledb.max_interval_per_job = '1d')
 AS
 SELECT 
 	mmsi,
@@ -30,9 +33,12 @@ SELECT
 FROM ais.voy_reports
 GROUP BY mmsi, day, routing_key;
 
-DROP VIEW IF EXISTS hourly_pos_cagg CASCADE;
-CREATE VIEW hourly_pos_cagg WITH
-(timescaledb.continuous, timescaledb.refresh_interval = '30m')
+DROP VIEW IF EXISTS ais.hourly_pos_cagg CASCADE;
+CREATE VIEW ais.hourly_pos_cagg WITH
+(timescaledb.continuous, 
+timescaledb.refresh_interval = '30m', 
+timescaledb.refresh_lag = '30m',
+timescaledb.max_interval_per_job = '2h')
 AS
  SELECT pos_reports.mmsi,
     time_bucket('01:00:00'::interval, pos_reports.event_time) AS bucket,
@@ -52,9 +58,12 @@ AS
    FROM ais.pos_reports
   GROUP BY pos_reports.mmsi, (time_bucket('01:00:00'::interval, pos_reports.event_time));
 
-DROP VIEW IF EXISTS daily_pos_cagg CASCADE;
-CREATE VIEW daily_pos_cagg WITH
-(timescaledb.continuous, timescaledb.refresh_interval = '30m')
+DROP VIEW IF EXISTS ais.daily_pos_cagg CASCADE;
+CREATE VIEW ais.daily_pos_cagg WITH
+(timescaledb.continuous, 
+timescaledb.refresh_interval = '30m', 
+timescaledb.refresh_lag = '30m',
+timescaledb.max_interval_per_job = '1d')
 AS
    SELECT pos_reports.mmsi,
     time_bucket('1 day'::interval, pos_reports.event_time) AS day,
@@ -72,25 +81,5 @@ AS
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
   GROUP BY pos_reports.mmsi, (time_bucket('1 day'::interval, pos_reports.event_time));
-
-
---  -- Doesnt' Work... Hitting TSDB limitations
--- DROP VIEW IF EXISTS ports_visited_cagg CASCADE;
--- CREATE VIEW ports_visited_cagg WITH
--- (timescaledb.continuous, timescaledb.refresh_interval = '2h')
--- AS
--- SELECT 
--- 	mmsi,
--- 	last(port_name, event_time) as port_name,
--- 	time_bucket('6h', event_time) as day,
--- 	last(event_time, event_time) as first_time,
--- 	last(event_time, event_time) as last_time,
--- 	min(sog,event_time) as min_sog,
--- 	last(position) as ship_pos,
--- 	last(geom) as port_pos	
--- FROM ais.pos_reports, geo.world_port_index
--- WHERE 
--- hourly_vessel_agg.position && ST_BUFFER(geo.world_port_index.geom, 0.2)
--- GROUP BY mmsi, day; 
 
 COMMIT;

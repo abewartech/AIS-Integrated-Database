@@ -145,9 +145,13 @@ SELECT ('POLYGON((0 0, 0 '||$4||', '||$3||' '||$4||', '||$3||' 0,0 0))')::geomet
 ) AS foo;
 $$ LANGUAGE sql IMMUTABLE STRICT;
 
--- CREATE TABLE geo.world_10km_grid AS
--- SELECT *
--- FROM ST_CreateFishnet(3600, 1800, 0.01, 0.01,-180,-90) AS cells;
+CREATE TABLE geo.world_10km_grid AS
+  SELECT *
+  FROM ST_CreateFishnet(3600, 1800, 0.01, 0.01,-180,-90) AS cells;
+
+CREATE INDEX grid_10km_index_geom
+   ON geo.world_10km_grid USING gist
+   (geom);
 
 COMMIT;
 
@@ -156,8 +160,6 @@ COMMIT;
 --RAISE NOTICE 'Building Index on grid';
 
 
---CREATE INDEX grid_10km_index_geom
---    ON geo.world_10km_grid USING gist
---    (geom);
+
 
 
