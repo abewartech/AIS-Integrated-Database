@@ -83,7 +83,7 @@ class MessageProcessor():
         log.debug('Starting SQL execution...')
         conn = psycopg2.connect(host=os.getenv('DB_HOST'),
                                     dbname=os.getenv('POSTGRES_DB'),
-                                    port=os.getenv('DB_PORT'),
+                                    port=os.getenv('DB_INT_PORT'),
                                     user=os.getenv('POSTGRES_USER'),
                                     password=os.getenv('POSTGRES_PASSWORD'))
         cursor = conn.cursor()
