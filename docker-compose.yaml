@@ -62,7 +62,7 @@ services:
     image: timescale/timescaledb-postgis:${TIMESCALE_TAG}
     command: postgres -c shared_preload_libraries=timescaledb
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_EXT_PORT}:${DB_INT_PORT}
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
