@@ -4,7 +4,7 @@ BEGIN;
 DROP VIEW IF EXISTS ais.vessel_details_cagg CASCADE;
 CREATE VIEW ais.vessel_details_cagg WITH
 (timescaledb.continuous, 
-timescaledb.refresh_interval = '30m', 
+timescaledb.refresh_interval = '60m', 
 timescaledb.refresh_lag = '30m',
 timescaledb.max_interval_per_job = '1d')
 AS
@@ -41,7 +41,7 @@ timescaledb.refresh_lag = '30m',
 timescaledb.max_interval_per_job = '2h')
 AS
  SELECT pos_reports.mmsi,
-    time_bucket('01:00:00'::interval, pos_reports.event_time) AS bucket,
+    time_bucket('00:30:00'::interval, pos_reports.event_time) AS bucket,
     last(pos_reports.event_time, pos_reports.event_time) AS event_time,
     last(pos_reports.longitude, pos_reports.event_time) AS longitude,
     last(pos_reports.latitude, pos_reports.event_time) AS latitude,
@@ -61,12 +61,12 @@ AS
 DROP VIEW IF EXISTS ais.daily_pos_cagg CASCADE;
 CREATE VIEW ais.daily_pos_cagg WITH
 (timescaledb.continuous, 
-timescaledb.refresh_interval = '30m', 
+timescaledb.refresh_interval = '60m', 
 timescaledb.refresh_lag = '30m',
 timescaledb.max_interval_per_job = '1d')
 AS
    SELECT pos_reports.mmsi,
-    time_bucket('1 day'::interval, pos_reports.event_time) AS day,
+    time_bucket('12h'::interval, pos_reports.event_time) AS day,
     last(pos_reports.event_time, pos_reports.event_time) AS event_time,
     last(pos_reports.longitude, pos_reports.event_time) AS longitude,
     last(pos_reports.latitude, pos_reports.event_time) AS latitude,
