@@ -4,20 +4,20 @@ services:
   # DB CHAIN 
   # ---------------------------------------------
   
-  db_inserter: 
+#  db_inserter: 
   # Builds a queue that's connected to the file_source output. Packages the messages into a DB acceptable format and 
   # sends them to an async worker to do the actual insert. It's much faster to do bulk inserts than it is to try
   # insert every single message alone.  
     # Reads a folder full of daily AIS logs, decodes them and feeds them onto a rabbitmq topic 
-    build:
-      context: ./build/db_inserter
-      dockerfile: Dockerfile
-    hostname: db_inserter
-    env_file:
-      - .env  #This both the docker-compose env file (to set ports names, image tags etc) and the internal container config (handles passwords, ports to connect to etc.)
+#    build:
+#      context: ./build/db_inserter
+#      dockerfile: Dockerfile
+#    hostname: db_inserter
+#    env_file:
+#      - .env  #This both the docker-compose env file (to set ports names, image tags etc) and the internal container config (handles passwords, ports to connect to etc.)
     # volumes:
       #  - /etc/localtime:/etc/localtime:ro #This is useful in Linux, doesn't work on Windows. 
-    command: python /usr/local/db_inserter/main.py -ll 'INFO' 
+#    command: python /usr/local/db_inserter/main.py -ll 'INFO' 
         
   db:
   # The database that holds all the AIS data and maybe some other nice to have's like:
