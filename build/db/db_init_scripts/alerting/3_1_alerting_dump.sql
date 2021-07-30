@@ -33,19 +33,19 @@ CREATE SCHEMA alerting;
 -- Name: data_feeds; Type: VIEW; Schema: alerting; Owner: rory
 --
 
-CREATE VIEW alerting.data_feeds AS
- WITH required_feeds AS (
-         SELECT DISTINCT ON (pos_reports_source_counter.routing_key) pos_reports_source_counter.routing_key,
-            pos_reports_source_counter.bucket AS last_bucket,
-            pos_reports_source_counter.count
-           FROM ais.pos_reports_source_counter
-          WHERE (pos_reports_source_counter.bucket > (now() - '1 mon'::interval))
-          ORDER BY pos_reports_source_counter.routing_key, pos_reports_source_counter.bucket DESC
-        )
- SELECT required_feeds.routing_key AS stopped_data_feed,
-    required_feeds.last_bucket
-   FROM required_feeds
-  WHERE (required_feeds.last_bucket < (now() - '02:00:00'::interval));
+-- CREATE VIEW alerting.data_feeds AS
+--  WITH required_feeds AS (
+--          SELECT DISTINCT ON (pos_reports_source_counter.routing_key) pos_reports_source_counter.routing_key,
+--             pos_reports_source_counter.bucket AS last_bucket,
+--             pos_reports_source_counter.count
+--            FROM ais.pos_reports_source_counter
+--           WHERE (pos_reports_source_counter.bucket > (now() - '1 mon'::interval))
+--           ORDER BY pos_reports_source_counter.routing_key, pos_reports_source_counter.bucket DESC
+--         )
+--  SELECT required_feeds.routing_key AS stopped_data_feed,
+--     required_feeds.last_bucket
+--    FROM required_feeds
+--   WHERE (required_feeds.last_bucket < (now() - '02:00:00'::interval));
 
 
 -- ALTER TABLE alerting.data_feeds OWNER TO rory;
@@ -107,50 +107,50 @@ CREATE TABLE alerting.history (
 -- Name: iran_vessels; Type: VIEW; Schema: alerting; Owner: rory
 --
 
-CREATE VIEW alerting.iran_vessels AS
- WITH rsa_eez AS (
-         SELECT ocean_geom.geom
-           FROM geo.ocean_geom
-          WHERE ((ocean_geom.geoname)::text = 'South African Exclusive Economic Zone'::text)
-        ), report_data AS (
-         SELECT DISTINCT ON (aa.imo) dd.geoname AS "Location",
-            round(((public.st_distance(cc."position", rsa_eez.geom) * (60)::double precision))::numeric, 0) AS "Distance to RSA EEZ [nautical miles]",
-            aa.name AS "Name",
-            bb.mmsi AS "MMSI",
-            bb.imo AS "IMO",
-            bb.callsign AS "Radio Callsign",
-            bb.type_and_cargo_text AS "Vessel Type",
-            bb.flag_state AS "Flag",
-            cc.event_time AS "Last Message",
-            date_trunc('minute'::text, (now() - cc.event_time)) AS "Time since Last Message",
-            round((cc.latitude)::numeric, 3) AS lat,
-            round((cc.longitude)::numeric, 3) AS lon,
-            cc.cog AS "Course [Degrees]",
-            cc.sog AS "Speed [Knots]"
-           FROM rsa_eez,
-            (((pan.vessels_of_interest aa
-             LEFT JOIN ais.ship_details_agg bb ON ((aa.imo = bb.imo)))
-             LEFT JOIN ais.hourly_pos_cagg cc ON ((bb.mmsi = cc.mmsi)))
-             LEFT JOIN geo.ocean_geom dd ON (public.st_within(cc."position", dd.geom)))
-          WHERE (cc.bucket > (now() - '14 days'::interval))
-          ORDER BY aa.imo, bb.event_time DESC, dd.level
-        )
- SELECT report_data."Location",
-    report_data."Distance to RSA EEZ [nautical miles]",
-    report_data."Name",
-    report_data."MMSI",
-    report_data."IMO",
-    report_data."Radio Callsign",
-    report_data."Vessel Type",
-    report_data."Flag",
-    report_data."Last Message",
-    report_data."Time since Last Message",
-    report_data.lat,
-    report_data.lon,
-    report_data."Course [Degrees]",
-    report_data."Speed [Knots]"
-   FROM report_data
-  ORDER BY report_data."Distance to RSA EEZ [nautical miles]";
+-- CREATE VIEW alerting.iran_vessels AS
+--  WITH rsa_eez AS (
+--          SELECT ocean_geom.geom
+--            FROM geo.ocean_geom
+--           WHERE ((ocean_geom.geoname)::text = 'South African Exclusive Economic Zone'::text)
+--         ), report_data AS (
+--          SELECT DISTINCT ON (aa.imo) dd.geoname AS "Location",
+--             round(((public.st_distance(cc."position", rsa_eez.geom) * (60)::double precision))::numeric, 0) AS "Distance to RSA EEZ [nautical miles]",
+--             aa.name AS "Name",
+--             bb.mmsi AS "MMSI",
+--             bb.imo AS "IMO",
+--             bb.callsign AS "Radio Callsign",
+--             bb.type_and_cargo_text AS "Vessel Type",
+--             bb.flag_state AS "Flag",
+--             cc.event_time AS "Last Message",
+--             date_trunc('minute'::text, (now() - cc.event_time)) AS "Time since Last Message",
+--             round((cc.latitude)::numeric, 3) AS lat,
+--             round((cc.longitude)::numeric, 3) AS lon,
+--             cc.cog AS "Course [Degrees]",
+--             cc.sog AS "Speed [Knots]"
+--            FROM rsa_eez,
+--             (((pan.vessels_of_interest aa
+--              LEFT JOIN ais.ship_details_agg bb ON ((aa.imo = bb.imo)))
+--              LEFT JOIN ais.hourly_pos_cagg cc ON ((bb.mmsi = cc.mmsi)))
+--              LEFT JOIN geo.ocean_geom dd ON (public.st_within(cc."position", dd.geom)))
+--           WHERE (cc.bucket > (now() - '14 days'::interval))
+--           ORDER BY aa.imo, bb.event_time DESC, dd.level
+--         )
+--  SELECT report_data."Location",
+--     report_data."Distance to RSA EEZ [nautical miles]",
+--     report_data."Name",
+--     report_data."MMSI",
+--     report_data."IMO",
+--     report_data."Radio Callsign",
+--     report_data."Vessel Type",
+--     report_data."Flag",
+--     report_data."Last Message",
+--     report_data."Time since Last Message",
+--     report_data.lat,
+--     report_data.lon,
+--     report_data."Course [Degrees]",
+--     report_data."Speed [Knots]"
+--    FROM report_data
+--   ORDER BY report_data."Distance to RSA EEZ [nautical miles]";
 
 
 -- ALTER TABLE alerting.iran_vessels OWNER TO rory;
