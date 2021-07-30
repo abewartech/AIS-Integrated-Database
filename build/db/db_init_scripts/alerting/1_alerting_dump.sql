@@ -26,7 +26,7 @@ SET row_security = off;
 CREATE SCHEMA alerting;
 
 
-ALTER SCHEMA alerting OWNER TO rory;
+-- ALTER SCHEMA alerting OWNER TO rory;
 
 --
 -- TOC entry 671 (class 1259 OID 333844)
@@ -48,7 +48,7 @@ CREATE VIEW alerting.data_feeds AS
   WHERE (required_feeds.last_bucket < (now() - '02:00:00'::interval));
 
 
-ALTER TABLE alerting.data_feeds OWNER TO rory;
+-- ALTER TABLE alerting.data_feeds OWNER TO rory;
 
 --
 -- TOC entry 647 (class 1259 OID 326138)
@@ -76,7 +76,7 @@ CREATE VIEW alerting.foreign_fishing_report AS
   ORDER BY aa.mmsi, aa.event_time DESC, cc.event_time DESC, bb.level DESC;
 
 
-ALTER TABLE alerting.foreign_fishing_report OWNER TO rory;
+-- ALTER TABLE alerting.foreign_fishing_report OWNER TO rory;
 
 SET default_tablespace = '';
 
@@ -100,7 +100,7 @@ CREATE TABLE alerting.history (
 );
 
 
-ALTER TABLE alerting.history OWNER TO rory;
+-- ALTER TABLE alerting.history OWNER TO rory;
 
 --
 -- TOC entry 648 (class 1259 OID 326143)
@@ -153,7 +153,7 @@ CREATE VIEW alerting.iran_vessels AS
   ORDER BY report_data."Distance to RSA EEZ [nautical miles]";
 
 
-ALTER TABLE alerting.iran_vessels OWNER TO rory;
+-- ALTER TABLE alerting.iran_vessels OWNER TO rory;
 
 --
 -- TOC entry 650 (class 1259 OID 326150)
@@ -175,7 +175,7 @@ CREATE TABLE alerting.jobs (
 );
 
 
-ALTER TABLE alerting.jobs OWNER TO rory;
+-- ALTER TABLE alerting.jobs OWNER TO rory;
 
 --
 -- TOC entry 649 (class 1259 OID 326148)
@@ -191,7 +191,7 @@ CREATE SEQUENCE alerting.jobs_id_seq
     CACHE 1;
 
 
-ALTER TABLE alerting.jobs_id_seq OWNER TO rory;
+-- ALTER TABLE alerting.jobs_id_seq OWNER TO rory;
 
 --
 -- TOC entry 6744 (class 0 OID 0)
@@ -218,7 +218,7 @@ CREATE TABLE alerting.reports (
 );
 
 
-ALTER TABLE alerting.reports OWNER TO rory;
+-- ALTER TABLE alerting.reports OWNER TO rory;
 
 --
 -- TOC entry 669 (class 1259 OID 332930)
@@ -232,7 +232,7 @@ CREATE TABLE alerting.user_reports (
 );
 
 
-ALTER TABLE alerting.user_reports OWNER TO rory;
+-- ALTER TABLE alerting.user_reports OWNER TO rory;
 
 --
 -- TOC entry 667 (class 1259 OID 332905)
@@ -248,7 +248,7 @@ CREATE TABLE alerting.users (
 );
 
 
-ALTER TABLE alerting.users OWNER TO rory;
+-- ALTER TABLE alerting.users OWNER TO rory;
 
 --
 -- TOC entry 677 (class 1259 OID 343980)
@@ -316,7 +316,7 @@ CREATE VIEW alerting.jobs_to_run AS
   WHERE ((bb.last_time_run < (now() - aa.schedule_interval)) OR (bb.last_time_run IS NULL));
 
 
-ALTER TABLE alerting.jobs_to_run OWNER TO rory;
+-- ALTER TABLE alerting.jobs_to_run OWNER TO rory;
 
 --
 -- TOC entry 674 (class 1259 OID 336869)
@@ -342,7 +342,7 @@ CREATE VIEW alerting.test AS
  LIMIT 1;
 
 
-ALTER TABLE alerting.test OWNER TO rory;
+-- ALTER TABLE alerting.test OWNER TO rory;
 
 --
 -- TOC entry 668 (class 1259 OID 332928)
@@ -358,7 +358,7 @@ CREATE SEQUENCE alerting.user_reports_id_seq
     CACHE 1;
 
 
-ALTER TABLE alerting.user_reports_id_seq OWNER TO rory;
+-- ALTER TABLE alerting.user_reports_id_seq OWNER TO rory;
 
 --
 -- TOC entry 6745 (class 0 OID 0)
@@ -383,7 +383,7 @@ CREATE SEQUENCE alerting.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE alerting.users_id_seq OWNER TO rory;
+-- ALTER TABLE alerting.users_id_seq OWNER TO rory;
 
 --
 -- TOC entry 6746 (class 0 OID 0)
@@ -410,7 +410,7 @@ CREATE TABLE alerting.vessels_of_interest (
 );
 
 
-ALTER TABLE alerting.vessels_of_interest OWNER TO rory;
+-- ALTER TABLE alerting.vessels_of_interest OWNER TO rory;
 
 --
 -- TOC entry 6475 (class 2604 OID 326153)
