@@ -1,7 +1,6 @@
 
-CREATE SCHEMA api_schema AUTHORIZATION rory;
+CREATE SCHEMA api_schema;
 GRANT USAGE ON SCHEMA api_schema TO api_user;
-GRANT ALL ON SCHEMA api_schema TO rory;
 ALTER DEFAULT PRIVILEGES IN SCHEMA api_schema
 GRANT SELECT ON TABLES TO api_user;
 
