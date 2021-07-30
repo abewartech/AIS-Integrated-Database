@@ -55,25 +55,25 @@ CREATE SCHEMA alerting;
 -- Name: foreign_fishing_report; Type: VIEW; Schema: alerting; Owner: rory
 --
 
-CREATE VIEW alerting.foreign_fishing_report AS
- SELECT DISTINCT ON (aa.mmsi) aa.mmsi AS "MMSI",
-    cc.name AS "Name",
-    cc.callsign AS "Callsign",
-    cc.flag_state AS "Flag State",
-    aa.event_time AS "Last Position Report",
-    public.st_aslatlontext(aa."position", 'D°M''S.SSS"C'::text) AS "DMS",
-    aa.longitude AS lon,
-    aa.latitude AS lat,
-    aa.cog AS "Course",
-    aa.sog AS "Speed",
-    dd.description AS "Nav Status",
-    bb.geoname AS "Location"
-   FROM (((ais.hourly_pos_cagg aa
-     JOIN geo.ocean_geom bb ON (public.st_intersects(aa."position", bb.geom)))
-     LEFT JOIN ais.ship_details_agg cc ON ((aa.mmsi = cc.mmsi)))
-     LEFT JOIN ais.nav_status dd ON (((aa.nav_status)::text = dd.nav_status)))
-  WHERE (((bb.geoname)::text = 'South African Exclusive Economic Zone'::text) AND ((cc.type_and_cargo)::text = '30'::text) AND (aa.bucket > (now() - '25:00:00'::interval)) AND (cc.flag_state <> 'South Africa'::text))
-  ORDER BY aa.mmsi, aa.event_time DESC, cc.event_time DESC, bb.level DESC;
+-- CREATE VIEW alerting.foreign_fishing_report AS
+--  SELECT DISTINCT ON (aa.mmsi) aa.mmsi AS "MMSI",
+--     cc.name AS "Name",
+--     cc.callsign AS "Callsign",
+--     cc.flag_state AS "Flag State",
+--     aa.event_time AS "Last Position Report",
+--     public.st_aslatlontext(aa."position", 'D°M''S.SSS"C'::text) AS "DMS",
+--     aa.longitude AS lon,
+--     aa.latitude AS lat,
+--     aa.cog AS "Course",
+--     aa.sog AS "Speed",
+--     dd.description AS "Nav Status",
+--     bb.geoname AS "Location"
+--    FROM (((ais.hourly_pos_cagg aa
+--      JOIN geo.ocean_geom bb ON (public.st_intersects(aa."position", bb.geom)))
+--      LEFT JOIN ais.ship_details_agg cc ON ((aa.mmsi = cc.mmsi)))
+--      LEFT JOIN ais.nav_status dd ON (((aa.nav_status)::text = dd.nav_status)))
+--   WHERE (((bb.geoname)::text = 'South African Exclusive Economic Zone'::text) AND ((cc.type_and_cargo)::text = '30'::text) AND (aa.bucket > (now() - '25:00:00'::interval)) AND (cc.flag_state <> 'South Africa'::text))
+--   ORDER BY aa.mmsi, aa.event_time DESC, cc.event_time DESC, bb.level DESC;
 
 
 -- ALTER TABLE alerting.foreign_fishing_report OWNER TO rory;
