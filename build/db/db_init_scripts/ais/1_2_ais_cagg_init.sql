@@ -55,7 +55,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, bucket) WITH NO DATA;
+  GROUP BY pos_reports.mmsi, bucket WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.hourly_pos_cagg',
     start_offset => INTERVAL '1 month',
@@ -81,7 +81,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, bucket) WITH NO DATA;
+  GROUP BY pos_reports.mmsi, bucket WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
     start_offset => INTERVAL '1 month',
