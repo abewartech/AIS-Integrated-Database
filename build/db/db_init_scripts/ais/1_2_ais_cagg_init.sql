@@ -7,7 +7,7 @@ CREATE MATERIALIZED VIEW ais.vessel_details_cagg WITH
 AS
 SELECT 
 	mmsi,
-	time_bucket('1d', event_time) as day,
+	time_bucket('1d', event_time) as bucket,
 	last(imo, event_time) as imo,
 	last(callsign, event_time) as callsign,
 	last(name, event_time) as name,
@@ -28,7 +28,7 @@ SELECT
 	last(msg_type, event_time) as msg_type,
 	last(routing_key, event_time) as routing_key
 FROM ais.voy_reports
-GROUP BY mmsi, day, routing_key WITH NO DATA;
+GROUP BY mmsi, bucket, routing_key WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.vessel_details_cagg',
     start_offset => INTERVAL '1 month',
@@ -55,7 +55,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, (time_bucket('01:00:00'::interval, pos_reports.event_time)) WITH NO DATA;
+  GROUP BY pos_reports.mmsi, bucket) WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.hourly_pos_cagg',
     start_offset => INTERVAL '1 month',
@@ -67,7 +67,7 @@ CREATE MATERIALIZED VIEW ais.daily_pos_cagg WITH
 (timescaledb.continuous )
 AS
    SELECT pos_reports.mmsi,
-    time_bucket('12h'::interval, pos_reports.event_time) AS day,
+    time_bucket('12h'::interval, pos_reports.event_time) AS bucket,
     last(pos_reports.event_time, pos_reports.event_time) AS event_time,
     last(pos_reports.longitude, pos_reports.event_time) AS longitude,
     last(pos_reports.latitude, pos_reports.event_time) AS latitude,
@@ -81,7 +81,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, (time_bucket('1 day'::interval, pos_reports.event_time)) WITH NO DATA;
+  GROUP BY pos_reports.mmsi, bucket) WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
     start_offset => INTERVAL '1 month',
