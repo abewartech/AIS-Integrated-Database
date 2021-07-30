@@ -28,7 +28,7 @@ SELECT
 	last(msg_type, event_time) as msg_type,
 	last(routing_key, event_time) as routing_key
 FROM ais.voy_reports
-GROUP BY mmsi, day, routing_key;
+GROUP BY mmsi, day, routing_key WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.vessel_details_cagg',
     start_offset => INTERVAL '1 month',
@@ -55,7 +55,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, (time_bucket('01:00:00'::interval, pos_reports.event_time));
+  GROUP BY pos_reports.mmsi, (time_bucket('01:00:00'::interval, pos_reports.event_time)) WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.hourly_pos_cagg',
     start_offset => INTERVAL '1 month',
@@ -81,7 +81,7 @@ AS
     min(pos_reports.cog) AS min_cog,
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
-  GROUP BY pos_reports.mmsi, (time_bucket('1 day'::interval, pos_reports.event_time));
+  GROUP BY pos_reports.mmsi, (time_bucket('1 day'::interval, pos_reports.event_time)) WITH NO DATA;
 
 SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
     start_offset => INTERVAL '1 month',
