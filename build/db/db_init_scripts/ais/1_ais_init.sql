@@ -9,10 +9,6 @@
 
 BEGIN;
 
--- geo schema will hold spatial data like eez, mpa etc
--- that gets loaded from shapefiles from the .sh script that gets called
--- after this one.
-
 -- ais schema holds ais data in the same format as previously
 CREATE SCHEMA ais;
 
