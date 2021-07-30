@@ -1,12 +1,9 @@
 
 BEGIN;
 
-DROP VIEW IF EXISTS ais.vessel_details_cagg CASCADE;
-CREATE VIEW ais.vessel_details_cagg WITH
-(timescaledb.continuous, 
-timescaledb.refresh_interval = '60m', 
-timescaledb.refresh_lag = '30m',
-timescaledb.max_interval_per_job = '1d')
+DROP MATERIALIZED VIEW IF EXISTS ais.vessel_details_cagg CASCADE;
+CREATE MATERIALIZED VIEW ais.vessel_details_cagg WITH
+(timescaledb.continuous )
 AS
 SELECT 
 	mmsi,
@@ -33,12 +30,14 @@ SELECT
 FROM ais.voy_reports
 GROUP BY mmsi, day, routing_key;
 
-DROP VIEW IF EXISTS ais.hourly_pos_cagg CASCADE;
-CREATE VIEW ais.hourly_pos_cagg WITH
-(timescaledb.continuous, 
-timescaledb.refresh_interval = '30m', 
-timescaledb.refresh_lag = '30m',
-timescaledb.max_interval_per_job = '2h')
+SELECT add_continuous_aggregate_policy('ais.vessel_details_cagg',
+    start_offset => INTERVAL '1 month',
+    end_offset => INTERVAL '1 h',
+    schedule_interval => INTERVAL '1 h');
+
+DROP MATERIALIZED VIEW IF EXISTS ais.hourly_pos_cagg CASCADE;
+CREATE MATERIALIZED VIEW ais.hourly_pos_cagg WITH
+(timescaledb.continuous )
 AS
  SELECT pos_reports.mmsi,
     time_bucket('00:30:00'::interval, pos_reports.event_time) AS bucket,
@@ -58,12 +57,14 @@ AS
    FROM ais.pos_reports
   GROUP BY pos_reports.mmsi, (time_bucket('01:00:00'::interval, pos_reports.event_time));
 
-DROP VIEW IF EXISTS ais.daily_pos_cagg CASCADE;
-CREATE VIEW ais.daily_pos_cagg WITH
-(timescaledb.continuous, 
-timescaledb.refresh_interval = '60m', 
-timescaledb.refresh_lag = '30m',
-timescaledb.max_interval_per_job = '1d')
+SELECT add_continuous_aggregate_policy('ais.hourly_pos_cagg',
+    start_offset => INTERVAL '1 month',
+    end_offset => INTERVAL '30 minutes',
+    schedule_interval => INTERVAL '30 minutes');
+
+DROP MATERIALIZED VIEW IF EXISTS ais.daily_pos_cagg CASCADE;
+CREATE MATERIALIZED VIEW ais.daily_pos_cagg WITH
+(timescaledb.continuous )
 AS
    SELECT pos_reports.mmsi,
     time_bucket('12h'::interval, pos_reports.event_time) AS day,
@@ -81,5 +82,10 @@ AS
     min(pos_reports.sog) AS min_sog
    FROM ais.pos_reports
   GROUP BY pos_reports.mmsi, (time_bucket('1 day'::interval, pos_reports.event_time));
+
+SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
+    start_offset => INTERVAL '1 month',
+    end_offset => INTERVAL '30 minutes',
+    schedule_interval => INTERVAL '30 minutes');
 
 COMMIT;
