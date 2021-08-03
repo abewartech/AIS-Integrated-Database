@@ -1,4 +1,4 @@
-CREATE SCHEMA vms;
+CREATE SCHEMA sar;
 
 --RAISE NOTICE 'Creating PostGIS Extenstion';
 CREATE EXTENSION IF NOT EXISTS postgis;
