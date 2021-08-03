@@ -428,7 +428,7 @@ GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO api_user;
  
 
 GRANT ALL ON TABLE ais.nav_status TO api_user; 
-GRANT ALL ON TABLE ais.vessel_trajectory TO api_user; 
+-- GRANT ALL ON TABLE ais.vessel_trajectory TO api_user; 
 
-GRANT SELECT ON TABLE ais.vessel_trajectory_2021_06_28 TO api_user;
+-- GRANT SELECT ON TABLE ais.vessel_trajectory_2021_06_28 TO api_user;
  
