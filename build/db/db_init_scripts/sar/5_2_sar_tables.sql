@@ -1,5 +1,5 @@
 
-CREATE TABLE public.sar_bilge
+CREATE TABLE sar.sar_bilge
 (
     database_id character varying(20) COLLATE pg_catalog."default",
     routing_key text COLLATE pg_catalog."default",
@@ -26,7 +26,7 @@ CREATE TABLE public.sar_bilge
 );
 
 
-CREATE TABLE public.sar_vessels
+CREATE TABLE sar.sar_vessels
 (
     database_id character varying(20) COLLATE pg_catalog."default",
     server_timestamp timestamp with time zone NOT NULL,
@@ -64,16 +64,12 @@ WITH (
 TABLESPACE pg_default;
  
 CREATE INDEX 
-    ON public.sar_vessels USING gist
+    ON sar.sar_vessels USING gist
     ("position")
     TABLESPACE pg_default;
--- Index: sar_ves_pos
+-- Index: sar_ves_pos 
 
--- DROP INDEX public.sar_ves_pos;
-
-
-
-CREATE TABLE public.sar_images
+CREATE TABLE sar.sar_images
 (
     database_id character varying(8) COLLATE pg_catalog."default",
     server_timestamp timestamp with time zone NOT NULL,
@@ -105,6 +101,6 @@ TABLESPACE pg_default;
 
 
 CREATE INDEX 
-    ON public.sar_images USING gist
+    ON sar.sar_images USING gist
     (geom)
     TABLESPACE pg_default;
