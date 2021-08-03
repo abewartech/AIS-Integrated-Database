@@ -26,7 +26,7 @@ SET row_security = off;
 CREATE SCHEMA ais;
 
 
-ALTER SCHEMA ais OWNER TO rory;
+-- ALTER SCHEMA ais OWNER TO rory;
 
 SET default_tablespace = '';
 
@@ -54,7 +54,7 @@ CREATE TABLE ais.pos_reports (
 );
 
 
-ALTER TABLE ais.pos_reports OWNER TO rory;
+-- ALTER TABLE ais.pos_reports OWNER TO rory;
 
 --
 -- TOC entry 257 (class 1259 OID 18510)
@@ -86,7 +86,7 @@ CREATE TABLE ais.voy_reports (
 );
 
 
-ALTER TABLE ais.voy_reports OWNER TO rory;
+-- ALTER TABLE ais.voy_reports OWNER TO rory;
 
 --
 -- TOC entry 258 (class 1259 OID 18519)
@@ -102,7 +102,7 @@ CREATE TABLE ais.ais_num_to_type (
 );
 
 
-ALTER TABLE ais.ais_num_to_type OWNER TO rory;
+-- ALTER TABLE ais.ais_num_to_type OWNER TO rory;
 
 --
 -- TOC entry 271 (class 1259 OID 19795)
@@ -149,7 +149,7 @@ UNION ALL
   GROUP BY pos_reports.mmsi, (public.time_bucket('00:30:00'::interval, pos_reports.event_time));
 
 
-ALTER TABLE ais.hourly_pos_cagg OWNER TO rory;
+-- ALTER TABLE ais.hourly_pos_cagg OWNER TO rory;
 
 --
 -- TOC entry 549 (class 1259 OID 146451)
@@ -165,7 +165,7 @@ CREATE MATERIALIZED VIEW ais.ais_traj_2020 AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.ais_traj_2020 OWNER TO rory;
+-- ALTER TABLE ais.ais_traj_2020 OWNER TO rory;
 
 --
 -- TOC entry 275 (class 1259 OID 19820)
@@ -210,7 +210,7 @@ UNION ALL
   GROUP BY pos_reports.mmsi, (public.time_bucket('12:00:00'::interval, pos_reports.event_time));
 
 
-ALTER TABLE ais.daily_pos_cagg OWNER TO rory;
+-- ALTER TABLE ais.daily_pos_cagg OWNER TO rory;
 
 --
 -- TOC entry 314 (class 1259 OID 21856)
@@ -231,7 +231,7 @@ UNION ALL
   GROUP BY pos_reports.routing_key, (public.time_bucket('01:00:00'::interval, pos_reports.event_time));
 
 
-ALTER TABLE ais.data_sources_cagg OWNER TO rory;
+-- ALTER TABLE ais.data_sources_cagg OWNER TO rory;
 
 --
 -- TOC entry 260 (class 1259 OID 18531)
@@ -248,7 +248,7 @@ CREATE TABLE ais.mid_to_country (
 );
 
 
-ALTER TABLE ais.mid_to_country OWNER TO rory;
+-- ALTER TABLE ais.mid_to_country OWNER TO rory;
 
 --
 -- TOC entry 267 (class 1259 OID 19770)
@@ -307,7 +307,7 @@ UNION ALL
   GROUP BY voy_reports.mmsi, (public.time_bucket('1 day'::interval, voy_reports.event_time)), voy_reports.routing_key;
 
 
-ALTER TABLE ais.vessel_details_cagg OWNER TO rory;
+-- ALTER TABLE ais.vessel_details_cagg OWNER TO rory;
 
 --
 -- TOC entry 434 (class 1259 OID 95381)
@@ -335,7 +335,7 @@ CREATE MATERIALIZED VIEW ais.ship_details_agg AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.ship_details_agg OWNER TO rory;
+-- ALTER TABLE ais.ship_details_agg OWNER TO rory;
 
 --
 -- TOC entry 575 (class 1259 OID 273246)
@@ -370,7 +370,7 @@ CREATE MATERIALIZED VIEW ais.vessel_traj_4h_gaps_2020 AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.vessel_traj_4h_gaps_2020 OWNER TO rory;
+-- ALTER TABLE ais.vessel_traj_4h_gaps_2020 OWNER TO rory;
 
 --
 -- TOC entry 576 (class 1259 OID 273585)
@@ -390,7 +390,7 @@ CREATE MATERIALIZED VIEW ais.martin_query AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.martin_query OWNER TO rory;
+-- ALTER TABLE ais.martin_query OWNER TO rory;
 
 --
 -- TOC entry 577 (class 1259 OID 273593)
@@ -411,8 +411,8 @@ CREATE MATERIALIZED VIEW ais.martin_query_sizes AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.martin_query_sizes OWNER TO rory;
-
+-- ALTER TABLE ais.martin_query_sizes OWNER TO rory;
+-- 
 --
 -- TOC entry 578 (class 1259 OID 273601)
 -- Name: martin_query_sizes_class; Type: MATERIALIZED VIEW; Schema: ais; Owner: rory
@@ -432,7 +432,7 @@ CREATE MATERIALIZED VIEW ais.martin_query_sizes_class AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.martin_query_sizes_class OWNER TO rory;
+-- ALTER TABLE ais.martin_query_sizes_class OWNER TO rory;
 
 --
 -- TOC entry 628 (class 1259 OID 308762)
@@ -464,7 +464,7 @@ CREATE MATERIALIZED VIEW ais.martin_query_sizes_class_flag_100nm AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.martin_query_sizes_class_flag_100nm OWNER TO rory;
+-- ALTER TABLE ais.martin_query_sizes_class_flag_100nm OWNER TO rory;
 
 --
 -- TOC entry 259 (class 1259 OID 18525)
@@ -477,7 +477,7 @@ CREATE TABLE ais.nav_status (
 );
 
 
-ALTER TABLE ais.nav_status OWNER TO rory;
+-- ALTER TABLE ais.nav_status OWNER TO rory;
 
 --
 -- TOC entry 306 (class 1259 OID 21804)
@@ -494,7 +494,7 @@ CREATE VIEW ais.port_history AS
   ORDER BY ais.event_time;
 
 
-ALTER TABLE ais.port_history OWNER TO rory;
+-- ALTER TABLE ais.port_history OWNER TO rory;
 
 --
 -- TOC entry 562 (class 1259 OID 163334)
@@ -557,7 +557,7 @@ UNION ALL
   GROUP BY aa.mmsi, aa.routing_key, (public.time_bucket('00:30:00'::interval, aa.event_time));
 
 
-ALTER TABLE ais.pos_reports_30min_cagg OWNER TO rory;
+-- ALTER TABLE ais.pos_reports_30min_cagg OWNER TO rory;
 
 --
 -- TOC entry 657 (class 1259 OID 328878)
@@ -626,7 +626,7 @@ UNION ALL
   GROUP BY ais.mmsi, (public.time_bucket('00:30:00'::interval, ais.event_time));
 
 
-ALTER TABLE ais.pos_reports_30min_dist_cagg OWNER TO rory;
+-- ALTER TABLE ais.pos_reports_30min_dist_cagg OWNER TO rory;
 
 --
 -- TOC entry 622 (class 1259 OID 306047)
@@ -649,7 +649,7 @@ UNION ALL
   GROUP BY pos_reports.routing_key, (public.time_bucket('00:30:00'::interval, pos_reports.event_time));
 
 
-ALTER TABLE ais.pos_reports_source_counter OWNER TO rory;
+-- ALTER TABLE ais.pos_reports_source_counter OWNER TO rory;
 
 --
 -- TOC entry 644 (class 1259 OID 325805)
@@ -668,7 +668,7 @@ CREATE VIEW ais.storm_trajectory AS
   GROUP BY gps.mmsi;
 
 
-ALTER TABLE ais.storm_trajectory OWNER TO rory;
+-- ALTER TABLE ais.storm_trajectory OWNER TO rory;
 
 --
 -- TOC entry 565 (class 1259 OID 190269)
@@ -725,7 +725,7 @@ CREATE MATERIALIZED VIEW ais.traj_testing AS
   WITH NO DATA;
 
 
-ALTER TABLE ais.traj_testing OWNER TO rory;
+-- ALTER TABLE ais.traj_testing OWNER TO rory;
 
 --
 -- TOC entry 305 (class 1259 OID 21799)
@@ -744,7 +744,7 @@ CREATE VIEW ais.vessel_trajectory AS
   GROUP BY gps.mmsi;
 
 
-ALTER TABLE ais.vessel_trajectory OWNER TO rory;
+-- ALTER TABLE ais.vessel_trajectory OWNER TO rory;
 
 --
 -- TOC entry 643 (class 1259 OID 325617)
@@ -763,7 +763,7 @@ CREATE VIEW ais.vessel_trajectory_2021_06_28 AS
   GROUP BY gps.mmsi;
 
 
-ALTER TABLE ais.vessel_trajectory_2021_06_28 OWNER TO rory;
+-- ALTER TABLE ais.vessel_trajectory_2021_06_28 OWNER TO rory;
 
 --
 -- TOC entry 6500 (class 1259 OID 273237)
@@ -1128,8 +1128,8 @@ GRANT SELECT ON TABLE ais.vessel_trajectory_2021_06_28 TO api_user;
 -- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: ais; Owner: rory
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais REVOKE ALL ON TABLES  FROM rory;
-ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais GRANT SELECT ON TABLES  TO api_user;
+-- ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais REVOKE ALL ON TABLES  FROM rory;
+-- ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais GRANT SELECT ON TABLES  TO api_user;
 
 
 -- Completed on 2021-08-03 10:38:33 UTC
