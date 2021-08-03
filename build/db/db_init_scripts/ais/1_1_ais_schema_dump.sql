@@ -345,7 +345,7 @@ CREATE ROLE api_user nologin;
 CREATE ROLE inserter WITH encrypted password 'mypassword';
 
 GRANT USAGE ON SCHEMA ais TO api_user;
-GRANT USAGE ON SCHEMA ais TO postgisftw;
+-- GRANT USAGE ON SCHEMA ais TO postgisftw;
 GRANT USAGE ON SCHEMA ais TO inserter;
 
 
@@ -356,7 +356,7 @@ GRANT USAGE ON SCHEMA ais TO inserter;
 --
 
 GRANT ALL ON TABLE ais.pos_reports TO api_user;
-GRANT SELECT ON TABLE ais.pos_reports TO postgisftw;
+-- GRANT SELECT ON TABLE ais.pos_reports TO postgisftw;
 GRANT INSERT ON TABLE ais.pos_reports TO inserter;
 
 
@@ -367,7 +367,7 @@ GRANT INSERT ON TABLE ais.pos_reports TO inserter;
 --
 
 GRANT ALL ON TABLE ais.voy_reports TO api_user;
-GRANT SELECT ON TABLE ais.voy_reports TO postgisftw;
+-- GRANT SELECT ON TABLE ais.voy_reports TO postgisftw;
 GRANT INSERT ON TABLE ais.voy_reports TO inserter;
 
 
@@ -378,7 +378,7 @@ GRANT INSERT ON TABLE ais.voy_reports TO inserter;
 --
 
 GRANT ALL ON TABLE ais.ais_num_to_type TO api_user;
-GRANT SELECT ON TABLE ais.ais_num_to_type TO postgisftw;
+-- GRANT SELECT ON TABLE ais.ais_num_to_type TO postgisftw;
 
 
 --
@@ -388,7 +388,7 @@ GRANT SELECT ON TABLE ais.ais_num_to_type TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.hourly_pos_cagg TO api_user;
-GRANT SELECT ON TABLE ais.hourly_pos_cagg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.hourly_pos_cagg TO postgisftw;
 
 
 --
@@ -398,7 +398,7 @@ GRANT SELECT ON TABLE ais.hourly_pos_cagg TO postgisftw;
 --
 
 GRANT SELECT ON TABLE ais.ais_traj_2020 TO api_user;
-GRANT SELECT ON TABLE ais.ais_traj_2020 TO postgisftw;
+-- GRANT SELECT ON TABLE ais.ais_traj_2020 TO postgisftw;
 
 
 --
@@ -408,7 +408,7 @@ GRANT SELECT ON TABLE ais.ais_traj_2020 TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.daily_pos_cagg TO api_user;
-GRANT SELECT ON TABLE ais.daily_pos_cagg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.daily_pos_cagg TO postgisftw;
 
 
 --
@@ -418,7 +418,7 @@ GRANT SELECT ON TABLE ais.daily_pos_cagg TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.data_sources_cagg TO api_user;
-GRANT SELECT ON TABLE ais.data_sources_cagg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.data_sources_cagg TO postgisftw;
 
 
 --
@@ -428,7 +428,7 @@ GRANT SELECT ON TABLE ais.data_sources_cagg TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.mid_to_country TO api_user;
-GRANT SELECT ON TABLE ais.mid_to_country TO postgisftw;
+-- GRANT SELECT ON TABLE ais.mid_to_country TO postgisftw;
 
 
 --
@@ -438,7 +438,7 @@ GRANT SELECT ON TABLE ais.mid_to_country TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.vessel_details_cagg TO api_user;
-GRANT SELECT ON TABLE ais.vessel_details_cagg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.vessel_details_cagg TO postgisftw;
 
 
 --
@@ -448,7 +448,7 @@ GRANT SELECT ON TABLE ais.vessel_details_cagg TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.ship_details_agg TO api_user;
-GRANT SELECT ON TABLE ais.ship_details_agg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.ship_details_agg TO postgisftw;
 
 
 --
@@ -458,7 +458,7 @@ GRANT SELECT ON TABLE ais.ship_details_agg TO postgisftw;
 --
 
 GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO api_user;
-GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO postgisftw;
+-- GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO postgisftw;
 
 
 --
@@ -504,7 +504,7 @@ GRANT SELECT ON TABLE ais.martin_query_sizes_class_flag_100nm TO api_user;
 --
 
 GRANT ALL ON TABLE ais.nav_status TO api_user;
-GRANT SELECT ON TABLE ais.nav_status TO postgisftw;
+-- GRANT SELECT ON TABLE ais.nav_status TO postgisftw;
 
 
 --
@@ -514,7 +514,7 @@ GRANT SELECT ON TABLE ais.nav_status TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.port_history TO api_user;
-GRANT SELECT ON TABLE ais.port_history TO postgisftw;
+-- GRANT SELECT ON TABLE ais.port_history TO postgisftw;
 
 
 --
@@ -524,7 +524,7 @@ GRANT SELECT ON TABLE ais.port_history TO postgisftw;
 --
 
 GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO api_user;
-GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO postgisftw;
+-- GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO postgisftw;
 
 
 --
@@ -561,8 +561,8 @@ GRANT SELECT ON TABLE ais.storm_trajectory TO api_user;
 --
 
 GRANT SELECT ON TABLE ais.traj_testing TO api_user;
-GRANT SELECT ON TABLE ais.traj_testing TO postgisftw;
-
+-- GRANT SELECT ON TABLE ais.traj_testing TO postgisftw;
+-- 
 
 --
 -- TOC entry 6776 (class 0 OID 0)
@@ -571,7 +571,7 @@ GRANT SELECT ON TABLE ais.traj_testing TO postgisftw;
 --
 
 GRANT ALL ON TABLE ais.vessel_trajectory TO api_user;
-GRANT SELECT ON TABLE ais.vessel_trajectory TO postgisftw;
+-- GRANT SELECT ON TABLE ais.vessel_trajectory TO postgisftw;
 
 
 --
