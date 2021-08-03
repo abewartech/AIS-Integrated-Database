@@ -41,7 +41,7 @@ CREATE TABLE public.sar_vessels
     sar_ship_width numeric(5,2),
     sar_ship_image_dtype text COLLATE pg_catalog."default",
     sar_ship_ml_info text COLLATE pg_catalog."default",
-    id bigint NOT NULL DEFAULT nextval('login_sar_vessel_id_seq'::regclass),
+    id serial PRIMARY KEY,
     sar_ship_image_data integer[],
     polarization text COLLATE pg_catalog."default",
     routing_key text COLLATE pg_catalog."default",
@@ -56,8 +56,7 @@ CREATE TABLE public.sar_vessels
     sar_ship_patch_data integer[],
     sar_ship_patch_dtype text COLLATE pg_catalog."default",
     lag_ais_id bigint,
-    lead_ais_id bigint,
-    CONSTRAINT login_sar_vessel_pkey PRIMARY KEY (id)
+    lead_ais_id bigint
 )
 WITH (
     OIDS = FALSE
@@ -90,15 +89,14 @@ CREATE TABLE public.sar_images
     sar_num_bilge_detections integer,
     sar_num_ship_detections integer,
     sar_proc_environment text COLLATE pg_catalog."default",
-    id bigint NOT NULL DEFAULT nextval('login_sar_image_id_seq'::regclass),
+    id serial PRIMARY KEY,
     routing_key text COLLATE pg_catalog."default",
     geom geometry(Polygon,4326),
     dark_target_processed boolean DEFAULT false,
     nearest_port text COLLATE pg_catalog."default",
     nearest_port_dist_km numeric,
     sar_centroid_lon double precision,
-    sar_centroid_lat double precision,
-    CONSTRAINT login_sar_image_pkey PRIMARY KEY (id)
+    sar_centroid_lat double precision 
 )
 WITH (
     OIDS = FALSE
