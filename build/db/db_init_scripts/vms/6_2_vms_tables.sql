@@ -14,8 +14,7 @@ CREATE TABLE public.login_vms_history
     callsign text COLLATE pg_catalog."default",
     flag_state character varying(3) COLLATE pg_catalog."default",
     routing_key text COLLATE pg_catalog."default",
-    id bigint NOT NULL DEFAULT nextval('login_vms_history_id_seq'::regclass),
-    CONSTRAINT login_vms_history_pkey PRIMARY KEY (id)
+    id serial PRIMARY KEY 
 )
 WITH (
     OIDS = FALSE
