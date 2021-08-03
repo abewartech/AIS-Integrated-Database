@@ -296,7 +296,7 @@ CREATE TABLE ais.nav_status (
 --   ORDER BY ais.event_time;
 
      
-CREATE INDEX pos_reports_event_time_idx ON ais.pos_reports USING btree (event_time DESC);
+-- CREATE INDEX pos_reports_event_time_idx ON ais.pos_reports USING btree (event_time DESC);
 
  
 
@@ -321,7 +321,7 @@ CREATE INDEX vessel_traj_4h_gaps_2020_traj_idx ON ais.vessel_traj_4h_gaps_2020 U
 
  
 
-CREATE INDEX voy_reports_event_time_idx ON ais.voy_reports USING btree (event_time DESC);
+-- CREATE INDEX voy_reports_event_time_idx ON ais.voy_reports USING btree (event_time DESC);
  
 
 CREATE INDEX voy_reports_mmsi_event_time_idx ON ais.voy_reports USING btree (mmsi, event_time DESC);
