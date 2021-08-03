@@ -341,7 +341,7 @@ CREATE INDEX voy_reports_mmsi_event_time_idx ON ais.voy_reports USING btree (mms
 -- CREATE TRIGGER ts_insert 
 
 CREATE ROLE api_user nologin;
-CREATE ROLE ocims WITH encrypted password 'ocims';
+-- CREATE ROLE ocims WITH encrypted password 'ocims';
 CREATE ROLE inserter WITH encrypted password 'mypassword';
 
 GRANT USAGE ON SCHEMA ais TO api_user;
