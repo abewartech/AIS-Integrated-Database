@@ -25,6 +25,11 @@ SET row_security = off;
 
 CREATE SCHEMA ais;
 
+--RAISE NOTICE 'Creating PostGIS Extenstion';
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+--RAISE NOTICE 'Creating TimescaleDB Extenstion';
+CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- ALTER SCHEMA ais OWNER TO rory;
 
