@@ -25,6 +25,9 @@ SET row_security = off;
 
 CREATE SCHEMA ais;
 
+GRANT USAGE on schema ais to public;
+GRANT CREATE on schema ais to public;
+
 --RAISE NOTICE 'Creating PostGIS Extenstion';
 CREATE EXTENSION IF NOT EXISTS postgis;
 
