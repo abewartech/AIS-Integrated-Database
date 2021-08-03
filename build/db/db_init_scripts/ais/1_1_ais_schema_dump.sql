@@ -397,7 +397,7 @@ GRANT ALL ON TABLE ais.hourly_pos_cagg TO api_user;
 -- Name: TABLE ais_traj_2020; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT SELECT ON TABLE ais.ais_traj_2020 TO api_user;
+-- GRANT SELECT ON TABLE ais.ais_traj_2020 TO api_user;
 -- GRANT SELECT ON TABLE ais.ais_traj_2020 TO postgisftw;
 
 
@@ -417,7 +417,7 @@ GRANT ALL ON TABLE ais.daily_pos_cagg TO api_user;
 -- Name: TABLE data_sources_cagg; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT ALL ON TABLE ais.data_sources_cagg TO api_user;
+-- GRANT ALL ON TABLE ais.data_sources_cagg TO api_user;
 -- GRANT SELECT ON TABLE ais.data_sources_cagg TO postgisftw;
 
 
@@ -466,42 +466,7 @@ GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO api_user;
 -- Dependencies: 576
 -- Name: TABLE martin_query; Type: ACL; Schema: ais; Owner: rory
 --
-
-GRANT SELECT ON TABLE ais.martin_query TO api_user;
-
-
---
--- TOC entry 6766 (class 0 OID 0)
--- Dependencies: 577
--- Name: TABLE martin_query_sizes; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.martin_query_sizes TO api_user;
-
-
---
--- TOC entry 6767 (class 0 OID 0)
--- Dependencies: 578
--- Name: TABLE martin_query_sizes_class; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.martin_query_sizes_class TO api_user;
-
-
---
--- TOC entry 6768 (class 0 OID 0)
--- Dependencies: 628
--- Name: TABLE martin_query_sizes_class_flag_100nm; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.martin_query_sizes_class_flag_100nm TO api_user;
-
-
---
--- TOC entry 6769 (class 0 OID 0)
--- Dependencies: 259
--- Name: TABLE nav_status; Type: ACL; Schema: ais; Owner: rory
---
+ 
 
 GRANT ALL ON TABLE ais.nav_status TO api_user;
 -- GRANT SELECT ON TABLE ais.nav_status TO postgisftw;
@@ -549,27 +514,7 @@ GRANT SELECT ON TABLE ais.pos_reports_source_counter TO api_user;
 -- TOC entry 6774 (class 0 OID 0)
 -- Dependencies: 644
 -- Name: TABLE storm_trajectory; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.storm_trajectory TO api_user;
-
-
---
--- TOC entry 6775 (class 0 OID 0)
--- Dependencies: 565
--- Name: TABLE traj_testing; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.traj_testing TO api_user;
--- GRANT SELECT ON TABLE ais.traj_testing TO postgisftw;
 -- 
-
---
--- TOC entry 6776 (class 0 OID 0)
--- Dependencies: 305
--- Name: TABLE vessel_trajectory; Type: ACL; Schema: ais; Owner: rory
---
-
 GRANT ALL ON TABLE ais.vessel_trajectory TO api_user;
 -- GRANT SELECT ON TABLE ais.vessel_trajectory TO postgisftw;
 
