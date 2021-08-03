@@ -410,136 +410,25 @@ GRANT ALL ON TABLE ais.hourly_pos_cagg TO api_user;
 GRANT ALL ON TABLE ais.daily_pos_cagg TO api_user;
 -- GRANT SELECT ON TABLE ais.daily_pos_cagg TO postgisftw;
 
-
---
--- TOC entry 6760 (class 0 OID 0)
--- Dependencies: 314
--- Name: TABLE data_sources_cagg; Type: ACL; Schema: ais; Owner: rory
---
-
--- GRANT ALL ON TABLE ais.data_sources_cagg TO api_user;
--- GRANT SELECT ON TABLE ais.data_sources_cagg TO postgisftw;
-
-
---
--- TOC entry 6761 (class 0 OID 0)
--- Dependencies: 260
--- Name: TABLE mid_to_country; Type: ACL; Schema: ais; Owner: rory
---
-
+ 
 GRANT ALL ON TABLE ais.mid_to_country TO api_user;
 -- GRANT SELECT ON TABLE ais.mid_to_country TO postgisftw;
 
-
---
--- TOC entry 6762 (class 0 OID 0)
--- Dependencies: 267
--- Name: TABLE vessel_details_cagg; Type: ACL; Schema: ais; Owner: rory
---
-
+ 
 GRANT ALL ON TABLE ais.vessel_details_cagg TO api_user;
 -- GRANT SELECT ON TABLE ais.vessel_details_cagg TO postgisftw;
 
-
---
--- TOC entry 6763 (class 0 OID 0)
--- Dependencies: 434
--- Name: TABLE ship_details_agg; Type: ACL; Schema: ais; Owner: rory
---
-
+ 
 GRANT ALL ON TABLE ais.ship_details_agg TO api_user;
--- GRANT SELECT ON TABLE ais.ship_details_agg TO postgisftw;
-
-
---
--- TOC entry 6764 (class 0 OID 0)
--- Dependencies: 575
+-- GRANT SELECT ON TABLE ais.ship_details_agg TO postgisftw; 
 -- Name: TABLE vessel_traj_4h_gaps_2020; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO api_user;
--- GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO postgisftw;
-
-
---
--- TOC entry 6765 (class 0 OID 0)
--- Dependencies: 576
--- Name: TABLE martin_query; Type: ACL; Schema: ais; Owner: rory
---
+GRANT SELECT ON TABLE ais.vessel_traj_4h_gaps_2020 TO api_user; 
  
 
-GRANT ALL ON TABLE ais.nav_status TO api_user;
--- GRANT SELECT ON TABLE ais.nav_status TO postgisftw;
-
-
---
--- TOC entry 6770 (class 0 OID 0)
--- Dependencies: 306
--- Name: TABLE port_history; Type: ACL; Schema: ais; Owner: rory
---
-
--- GRANT ALL ON TABLE ais.port_history TO api_user;
--- GRANT SELECT ON TABLE ais.port_history TO postgisftw;
-
-
---
--- TOC entry 6771 (class 0 OID 0)
--- Dependencies: 562
--- Name: TABLE pos_reports_30min_cagg; Type: ACL; Schema: ais; Owner: rory
---
-
--- GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO api_user;
--- GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO postgisftw;
-
-
---
--- TOC entry 6772 (class 0 OID 0)
--- Dependencies: 657
--- Name: TABLE pos_reports_30min_dist_cagg; Type: ACL; Schema: ais; Owner: rory
---
-
--- GRANT SELECT ON TABLE ais.pos_reports_30min_dist_cagg TO api_user;
-
-
---
--- TOC entry 6773 (class 0 OID 0)
--- Dependencies: 622
--- Name: TABLE pos_reports_source_counter; Type: ACL; Schema: ais; Owner: rory
---
-
-GRANT SELECT ON TABLE ais.pos_reports_source_counter TO api_user;
-
-
---
--- TOC entry 6774 (class 0 OID 0)
--- Dependencies: 644
--- Name: TABLE storm_trajectory; Type: ACL; Schema: ais; Owner: rory
--- 
-GRANT ALL ON TABLE ais.vessel_trajectory TO api_user;
--- GRANT SELECT ON TABLE ais.vessel_trajectory TO postgisftw;
-
-
---
--- TOC entry 6777 (class 0 OID 0)
--- Dependencies: 643
--- Name: TABLE vessel_trajectory_2021_06_28; Type: ACL; Schema: ais; Owner: rory
---
+GRANT ALL ON TABLE ais.nav_status TO api_user; 
+GRANT ALL ON TABLE ais.vessel_trajectory TO api_user; 
 
 GRANT SELECT ON TABLE ais.vessel_trajectory_2021_06_28 TO api_user;
-
-
---
--- TOC entry 5327 (class 826 OID 138530)
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: ais; Owner: rory
---
-
--- ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais REVOKE ALL ON TABLES  FROM rory;
--- ALTER DEFAULT PRIVILEGES FOR ROLE rory IN SCHEMA ais GRANT SELECT ON TABLES  TO api_user;
-
-
--- Completed on 2021-08-03 10:38:33 UTC
-
---
--- PostgreSQL database dump complete
---
-
+ 
