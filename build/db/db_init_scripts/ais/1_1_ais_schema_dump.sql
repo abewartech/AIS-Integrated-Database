@@ -58,6 +58,8 @@ CREATE TABLE ais.pos_reports (
     routing_key text
 );
 
+SELECT create_hypertable('ais.pos_reports', 'event_time');
+
 
 -- ALTER TABLE ais.pos_reports OWNER TO rory;
 
@@ -89,6 +91,8 @@ CREATE TABLE ais.voy_reports (
     msg_type character varying(3),
     routing_key text
 );
+
+SELECT create_hypertable('ais.voy_reports', 'event_time');
 
 
 -- ALTER TABLE ais.voy_reports OWNER TO rory;
