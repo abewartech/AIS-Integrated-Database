@@ -488,7 +488,7 @@ GRANT ALL ON TABLE ais.nav_status TO api_user;
 -- Name: TABLE pos_reports_30min_cagg; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO api_user;
+-- GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO api_user;
 -- GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO postgisftw;
 
 
@@ -498,7 +498,7 @@ GRANT SELECT ON TABLE ais.pos_reports_30min_cagg TO api_user;
 -- Name: TABLE pos_reports_30min_dist_cagg; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT SELECT ON TABLE ais.pos_reports_30min_dist_cagg TO api_user;
+-- GRANT SELECT ON TABLE ais.pos_reports_30min_dist_cagg TO api_user;
 
 
 --
