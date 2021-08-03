@@ -478,7 +478,7 @@ GRANT ALL ON TABLE ais.nav_status TO api_user;
 -- Name: TABLE port_history; Type: ACL; Schema: ais; Owner: rory
 --
 
-GRANT ALL ON TABLE ais.port_history TO api_user;
+-- GRANT ALL ON TABLE ais.port_history TO api_user;
 -- GRANT SELECT ON TABLE ais.port_history TO postgisftw;
 
 
