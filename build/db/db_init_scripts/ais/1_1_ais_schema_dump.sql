@@ -286,14 +286,14 @@ CREATE TABLE ais.nav_status (
 -- Name: port_history; Type: VIEW; Schema: ais; Owner: rory
 --
 
-CREATE VIEW ais.port_history AS
- SELECT port.port_name,
-    ais.mmsi,
-    ais.sog,
-    ais.event_time
-   FROM (geo.world_port_index port
-     JOIN ais.daily_pos_cagg ais ON ((public.st_dwithin(public.st_setsrid(port.geom, 4326), ais."position", (0.2)::double precision) AND (ais.sog < (5)::numeric))))
-  ORDER BY ais.event_time;
+-- CREATE VIEW ais.port_history AS
+--  SELECT port.port_name,
+--     ais.mmsi,
+--     ais.sog,
+--     ais.event_time
+--    FROM (geo.world_port_index port
+--      JOIN ais.daily_pos_cagg ais ON ((public.st_dwithin(public.st_setsrid(port.geom, 4326), ais."position", (0.2)::double precision) AND (ais.sog < (5)::numeric))))
+--   ORDER BY ais.event_time;
 
      
 CREATE INDEX pos_reports_event_time_idx ON ais.pos_reports USING btree (event_time DESC);
