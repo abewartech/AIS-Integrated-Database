@@ -63,49 +63,49 @@ GRANT SELECT ON TABLES TO api_user;
 
 -- DROP FUNCTION api_schema.fuzzy_name_search(text, integer);
 
-CREATE OR REPLACE FUNCTION api_schema.fuzzy_name_search(
-	fuzzy_name text,
-	page_offset integer)
-    RETURNS TABLE(mmsi text, imo text, name text, callsign text, to_bow smallint, to_stern smallint, to_port smallint, to_starboard smallint, type_and_cargo character varying, type_and_cargo_text text, flag_state text, routing_key text, event_time timestamp with time zone) 
-    LANGUAGE 'sql'
+-- CREATE OR REPLACE FUNCTION api_schema.fuzzy_name_search(
+-- 	fuzzy_name text,
+-- 	page_offset integer)
+--     RETURNS TABLE(mmsi text, imo text, name text, callsign text, to_bow smallint, to_stern smallint, to_port smallint, to_starboard smallint, type_and_cargo character varying, type_and_cargo_text text, flag_state text, routing_key text, event_time timestamp with time zone) 
+--     LANGUAGE 'sql'
 
-    COST 100
-    VOLATILE 
-    ROWS 1000
+--     COST 100
+--     VOLATILE 
+--     ROWS 1000
     
-AS $BODY$
+-- AS $BODY$
 
-SELECT 
-    aa.mmsi,
-    aa.imo,
-    aa.name,
-    aa.callsign,
-    aa.to_bow,
-    aa.to_stern,
-    aa.to_port,
-    aa.to_starboard,
-    aa.type_and_cargo,
-    num.description AS type_and_cargo_text,
-    mid.country AS flag_state,
-    aa.routing_key,
-    aa.event_time
-   FROM ((ais.ship_details_agg as aa
-     LEFT JOIN ais.ais_num_to_type num ON (((num.ais_num)::text = (aa.type_and_cargo)::text)))
-     LEFT JOIN ais.mid_to_country mid ON (("left"(aa.mmsi, 3) = (mid.mid)::text)))
-   WHERE SIMILARITY(name,$1) > 0.2 
-  ORDER by SIMILARITY(name,$1) DESC
-  limit 10 offset $2 
+-- SELECT 
+--     aa.mmsi,
+--     aa.imo,
+--     aa.name,
+--     aa.callsign,
+--     aa.to_bow,
+--     aa.to_stern,
+--     aa.to_port,
+--     aa.to_starboard,
+--     aa.type_and_cargo,
+--     num.description AS type_and_cargo_text,
+--     mid.country AS flag_state,
+--     aa.routing_key,
+--     aa.event_time
+--    FROM ((ais.ship_details_agg as aa
+--      LEFT JOIN ais.ais_num_to_type num ON (((num.ais_num)::text = (aa.type_and_cargo)::text)))
+--      LEFT JOIN ais.mid_to_country mid ON (("left"(aa.mmsi, 3) = (mid.mid)::text)))
+--    WHERE SIMILARITY(name,$1) > 0.2 
+--   ORDER by SIMILARITY(name,$1) DESC
+--   limit 10 offset $2 
  
-$BODY$;
+-- $BODY$;
 
-ALTER FUNCTION api_schema.fuzzy_name_search(text, integer)
-    OWNER TO rory;
+-- ALTER FUNCTION api_schema.fuzzy_name_search(text, integer)
+--     OWNER TO rory;
 
-GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO api_user;
+-- GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO api_user;
 
-GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO PUBLIC;
+-- GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO PUBLIC;
 
-GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO rory;
+-- GRANT EXECUTE ON FUNCTION api_schema.fuzzy_name_search(text, integer) TO rory;
 
 -- CREATE OR REPLACE FUNCTION api_schema.port_history(
 -- 	mmsi text,
