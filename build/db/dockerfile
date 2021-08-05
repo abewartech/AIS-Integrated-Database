@@ -3,3 +3,4 @@ USER root
 RUN  apt-get update \
   && apt-get install -y wget postgis \
   && rm -rf /var/lib/apt/lists/*
+USER postgres
