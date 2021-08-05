@@ -272,8 +272,8 @@ WITH pos_data as
   GROUP BY gps.mmsi; 
 $BODY$;
 
-ALTER FUNCTION api_schema.vessel_trajectory_daily(text, timestamp with time zone, timestamp with time zone)
-    OWNER TO rory;
+-- ALTER FUNCTION api_schema.vessel_trajectory_daily(text, timestamp with time zone, timestamp with time zone)
+--     OWNER TO rory;
 
 CREATE OR REPLACE FUNCTION api_schema.vessel_trajectory_hourly(
 	mmsi text,
@@ -309,8 +309,8 @@ WITH pos_data as
   GROUP BY gps.mmsi; 
 $BODY$;
 
-ALTER FUNCTION api_schema.vessel_trajectory_hourly(text, timestamp with time zone, timestamp with time zone)
-    OWNER TO rory;
+-- ALTER FUNCTION api_schema.vessel_trajectory_hourly(text, timestamp with time zone, timestamp with time zone)
+--     OWNER TO rory;
 
 CREATE OR REPLACE FUNCTION api_schema.vessel_trajectory_mixed(
 	mmsi text,
@@ -381,8 +381,8 @@ WITH raw_data as
   GROUP BY gps.mmsi; 
 $BODY$;
 
-ALTER FUNCTION api_schema.vessel_trajectory_mixed(text, timestamp with time zone, timestamp with time zone)
-    OWNER TO rory;
+-- ALTER FUNCTION api_schema.vessel_trajectory_mixed(text, timestamp with time zone, timestamp with time zone)
+--     OWNER TO rory;
 
 
 CREATE OR REPLACE FUNCTION api_schema.vessel_trajectory_mixed(
@@ -454,5 +454,5 @@ WITH raw_data as
   GROUP BY gps.mmsi; 
 $BODY$;
 
-ALTER FUNCTION api_schema.vessel_trajectory_mixed(text, timestamp with time zone, timestamp with time zone) OWNER TO rory;
+-- ALTER FUNCTION api_schema.vessel_trajectory_mixed(text, timestamp with time zone, timestamp with time zone) OWNER TO rory;
 
