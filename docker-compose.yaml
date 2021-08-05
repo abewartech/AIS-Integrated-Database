@@ -25,7 +25,8 @@ services:
       - POSTGRES_UID=${UID}
       - POSTGRES_GID=${GID}
     volumes:
-      - ./volumes/db/:/var/lib/postgresql/data
+## Volume commented out to test building of DB. Uncomment for DB persisitance
+#      - ./volumes/db/:/var/lib/postgresql/data
       - ./build/db/scripts_to_run:/docker-entrypoint-initdb.d/ 
       - ./build/db/db_init_data/:/tmp
 
