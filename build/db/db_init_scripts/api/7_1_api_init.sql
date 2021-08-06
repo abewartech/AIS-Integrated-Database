@@ -20,4 +20,3 @@ create role authenticator noinherit login password 'mysecretpassword';
 grant web_anon to authenticator;
 
 CREATE view api.jobs_to_run AS SELECT * FROM  alerting.jobs_to_run;
-ALTER VIEW sample_view OWNER TO api_views_owner;
