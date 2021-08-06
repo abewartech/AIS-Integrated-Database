@@ -10,7 +10,7 @@ else
     echo 'World EEZ file exists. Skip download.'
 fi
 echo '--- Loading World EEZ v11'
-unzip ./world_eez.zip -d ../unzips/.
+unzip /tmp/shapes/world_eez.zip -d /tmp/unzips/.
 shp2pgsql -I /tmp/unzips/eez_boundaries_v10.shp geo.world_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -22,7 +22,7 @@ else
     echo 'World 24 NM file exists. Skip download.'
 fi
 echo '--- Loading World 24 NM'
-unzip ./world_24nm.zip -d ../unzips/.
+unzip /tmp/shapes/world_24nm.zip -d /tmp/unzips/.
 shp2pgsql -I /tmp/unzips/eez_24nm.shp geo.eez_24nm | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -34,7 +34,7 @@ else
     echo 'World 12 NM file exists. Skip download.'
 fi
 echo '--- Loading World 12 NM'
-unzip ./world_12nm.zip -d ../unzips/
+unzip /tmp/shapes/world_12nm.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/eez_12nm.shp geo.eez_12nm | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -46,7 +46,7 @@ else
     echo 'World Internal Waters file exists. Skip download.'
 fi
 echo '--- Loading World Internal Waters'
-unzip ./world_int_waters.zip -d ../unzips/
+unzip /tmp/shapes/world_int_waters.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/eez_internal_waters.shp geo.eez_internal_waters | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -58,7 +58,7 @@ else
     echo 'World World Archipelagic Waters file exists. Skip download.'
 fi
 echo '--- Loading World Archipelagic Waters'
-unzip ./world_archi_waters.zip -d ../unzips/
+unzip /tmp/shapes/world_archi_waters.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/eez_archipelagic_waters.shp geo.eez_archipelagic_waters | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -70,7 +70,7 @@ else
     echo 'High Seas file exists. Skip download.'
 fi
 echo '--- Loading World High Seas v1' 
-unzip ./high_seas.zip -d ../unzips/
+unzip /tmp/shapes/high_seas.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/high_seas.shp geo.oceans_world | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -84,7 +84,7 @@ else
     echo 'WPI file exists. Skip download.'
 fi
 echo '--- Loading World Port Index'
-unzip ./wpi.zip -d ../unzips/
+unzip /tmp/shapes/wpi.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/WPI.shp geo.world_port_index | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -96,7 +96,7 @@ else
     echo 'SAMPAZ file exists. Skip download.'
 fi
 echo '--- Loading DEFF SAMPAZ MPA List'
-unzip ./sampaz.zip -d ../unzips/
+unzip /tmp/shapes/sampaz.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/SAMPAZ_OR_2021_Q1.shp geo.sampaz | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
@@ -108,7 +108,7 @@ else
     echo 'Admin Boundaries file exists. Skip download.'
 fi
 echo '--- Loading Country Admin Boundaries'
-unzip ./country.zip -d ../unzips/
+unzip /tmp/shapes/country.zip -d /tmp/unzips/
 shp2pgsql -I /tmp/unzips/ne_50m_admin_0_countries.shp geo.admin_0_countriesd_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
