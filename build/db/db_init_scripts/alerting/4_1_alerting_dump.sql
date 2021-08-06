@@ -87,7 +87,7 @@ CREATE VIEW alerting.jobs_to_run AS
           ORDER BY history.user_id, history.report_id, history.job_id, history.start_time DESC
         ), jobs_to_run AS (
          SELECT users.id AS user_id,
-            reports.report_id,
+            reports.id,
             jobs.id AS job_id,
             users.enabled AS user_is_enabled,
             jobs.scheduled AS job_is_enabled,
