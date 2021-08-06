@@ -7,16 +7,16 @@
 
 -- Started on 2021-07-26 14:19:26 UTC
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
+-- SET statement_timeout = 0;
+-- SET lock_timeout = 0;
+-- SET idle_in_transaction_session_timeout = 0;
+-- SET client_encoding = 'UTF8';
+-- SET standard_conforming_strings = on;
+-- SELECT pg_catalog.set_config('search_path', '', false);
+-- SET check_function_bodies = false;
+-- SET xmloption = content;
+-- SET client_min_messages = warning;
+-- SET row_security = off;
  
 
 CREATE SCHEMA alerting;
@@ -35,7 +35,7 @@ CREATE TABLE alerting.history (
  
 
 CREATE TABLE alerting.jobs (
-    id integer NOT NULL,
+    id SERIAL PRIMARY KEY,
     application_name name NOT NULL,
     schedule_interval interval NOT NULL,
     max_runtime interval NOT NULL,
@@ -46,42 +46,28 @@ CREATE TABLE alerting.jobs (
     config jsonb,
     report_id integer,
     last_run timestamp with time zone
-);
-
- 
-CREATE SEQUENCE alerting.jobs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+); 
  
 ALTER SEQUENCE alerting.jobs_id_seq OWNED BY alerting.jobs.id;
  
 CREATE TABLE alerting.reports (
-    report_id integer DEFAULT nextval('alerting.reports_report_id_seq'::regclass) NOT NULL,
+    id SERIAL PRIMARY KEY,
     report_name text,
     report_type text,
     source_type text,
     report_source text,
     creation_date timestamp with time zone,
     version text
-);
-
- 
+); 
 
 CREATE TABLE alerting.user_reports (
-    id integer NOT NULL,
+    id SERIAL PRIMARY KEY,
     user_id integer,
     report_id integer
 );
 
- 
-
 CREATE TABLE alerting.users (
-    id integer NOT NULL,
+    id SERIAL PRIMARY KEY,
     user_name text,
     email_addr text,
     enabled boolean DEFAULT false,
@@ -149,33 +135,9 @@ CREATE VIEW alerting.jobs_to_run AS
      LEFT JOIN last_run_details bb ON (((aa.user_id = bb.user_id) AND (aa.report_id = bb.report_id) AND (aa.job_id = bb.job_id))))
   WHERE ((bb.last_time_run < (now() - aa.schedule_interval)) OR (bb.last_time_run IS NULL));
   
-
-CREATE SEQUENCE alerting.user_reports_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
- 
-ALTER SEQUENCE alerting.user_reports_id_seq OWNED BY alerting.user_reports.id;
-
- 
-
-CREATE SEQUENCE alerting.users_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
- 
-
-ALTER SEQUENCE alerting.users_id_seq OWNED BY alerting.users.id;
- 
-
+   
 CREATE TABLE alerting.vessels_of_interest (
-    interest_id integer DEFAULT nextval('alerting.vessels_of_interest_interest_id_seq'::regclass) NOT NULL,
+    id SERIAL PRIMARY KEY,
     name text,
     type text,
     imo text,
@@ -184,54 +146,23 @@ CREATE TABLE alerting.vessels_of_interest (
     mmsi text
 );
 
- 
-ALTER TABLE ONLY alerting.jobs ALTER COLUMN id SET DEFAULT nextval('alerting.jobs_id_seq'::regclass);
- 
-
-ALTER TABLE ONLY alerting.user_reports ALTER COLUMN id SET DEFAULT nextval('alerting.user_reports_id_seq'::regclass);
- 
-
-ALTER TABLE ONLY alerting.users ALTER COLUMN id SET DEFAULT nextval('alerting.users_id_seq'::regclass);
- 
-
-ALTER TABLE ONLY alerting.jobs
-    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
- 
-
-ALTER TABLE ONLY alerting.reports
-    ADD CONSTRAINT reports_pkey PRIMARY KEY (report_id);
- 
-
-ALTER TABLE ONLY alerting.user_reports
-    ADD CONSTRAINT user_reports_pkey PRIMARY KEY (id);
- 
-
-ALTER TABLE ONLY alerting.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
- 
-
-ALTER TABLE ONLY alerting.vessels_of_interest
-    ADD CONSTRAINT vessels_of_interest_pkey PRIMARY KEY (interest_id);
- 
+         
 
 ALTER TABLE ONLY alerting.history
     ADD CONSTRAINT fk_user_id FOREIGN KEY (job_id) REFERENCES alerting.jobs(id);
  
-
 ALTER TABLE ONLY alerting.jobs
-    ADD CONSTRAINT jobs_fk_report_id FOREIGN KEY (report_id) REFERENCES alerting.reports(report_id);
+    ADD CONSTRAINT jobs_fk_report_id FOREIGN KEY (report_id) REFERENCES alerting.reports(id);
  
 ALTER TABLE ONLY alerting.history
-    ADD CONSTRAINT report_fk_id FOREIGN KEY (report_id) REFERENCES alerting.reports(report_id);
+    ADD CONSTRAINT report_fk_id FOREIGN KEY (report_id) REFERENCES alerting.reports(id);
  
 ALTER TABLE ONLY alerting.user_reports
-    ADD CONSTRAINT reports_fk_reports FOREIGN KEY (report_id) REFERENCES alerting.reports(report_id);
+    ADD CONSTRAINT reports_fk_reports FOREIGN KEY (report_id) REFERENCES alerting.reports(id);
  
-
 ALTER TABLE ONLY alerting.history
     ADD CONSTRAINT user_fk_history FOREIGN KEY (user_id) REFERENCES alerting.users(id);
  
-
 ALTER TABLE ONLY alerting.user_reports
     ADD CONSTRAINT user_fk_reports FOREIGN KEY (user_id) REFERENCES alerting.users(id);
  
