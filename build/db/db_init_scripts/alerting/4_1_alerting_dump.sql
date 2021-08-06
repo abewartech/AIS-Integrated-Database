@@ -107,8 +107,8 @@ CREATE VIEW alerting.jobs_to_run AS
             jobs.retry_period
            FROM (((alerting.users users
              JOIN alerting.user_reports aa_1 ON ((users.id = aa_1.user_id)))
-             JOIN alerting.reports reports ON ((aa_1.report_id = reports.report_id)))
-             JOIN alerting.jobs jobs ON ((jobs.report_id = reports.report_id)))
+             JOIN alerting.reports reports ON ((aa_1.report_id = reports.id)))
+             JOIN alerting.jobs jobs ON ((jobs.report_id = reports.id)))
         )
  SELECT aa.user_id,
     aa.report_id,
