@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------
 -- The user and DB is handled by the docker environment variables
---BEGIN;
-CREATE USER ocims with encrypted password 'super_secret_password';
+-- --BEGIN;
+-- CREATE USER ocims with encrypted password 'super_secret_password';
 --COMMIT;
 
 
