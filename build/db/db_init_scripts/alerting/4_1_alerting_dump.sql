@@ -61,7 +61,7 @@ CREATE SEQUENCE alerting.jobs_id_seq
 ALTER SEQUENCE alerting.jobs_id_seq OWNED BY alerting.jobs.id;
  
 CREATE TABLE alerting.reports (
-    report_id integer DEFAULT nextval('pan.reports_report_id_seq'::regclass) NOT NULL,
+    report_id integer DEFAULT nextval('alerting.reports_report_id_seq'::regclass) NOT NULL,
     report_name text,
     report_type text,
     source_type text,
@@ -175,7 +175,7 @@ ALTER SEQUENCE alerting.users_id_seq OWNED BY alerting.users.id;
  
 
 CREATE TABLE alerting.vessels_of_interest (
-    interest_id integer DEFAULT nextval('pan.vessels_of_interest_interest_id_seq'::regclass) NOT NULL,
+    interest_id integer DEFAULT nextval('alerting.vessels_of_interest_interest_id_seq'::regclass) NOT NULL,
     name text,
     type text,
     imo text,
