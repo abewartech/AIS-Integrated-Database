@@ -12,7 +12,7 @@ INSERT INTO alerting.user_reports
 (user_id, report_id)
 VALUES
 ((SELECT id FROM alerting.users WHERE user_name = 'SysAdmin'),
- (SELECT report_id FROM alerting.reports WHERE report_name = 'Test Report'));
+ (SELECT id FROM alerting.reports WHERE report_name = 'Test Report'));
 
 INSERT INTO alerting.jobs
 (application_name, schedule_interval, max_runtime, max_retries, retry_period, owner, scheduled, config, report_id, last_run)
@@ -25,7 +25,7 @@ VALUES
  'rory', 			--the owner
  True, 				--active/not active
  NULL,				-- Some JSONb config params. I dunno
- (SELECT report_id FROM alerting.reports WHERE report_name = 'Test Report'),
+ (SELECT id FROM alerting.reports WHERE report_name = 'Test Report'),
  '2020-01-01'			-- Updated on successful run
 ); 
 
