@@ -19,4 +19,7 @@ grant select on api.todos to web_anon;
 create role authenticator noinherit login password 'mysecretpassword';
 grant web_anon to authenticator;
 
-CREATE view api.jobs_to_run AS SELECT * FROM  alerting.jobs_to_run;
+CREATE view api.tasks AS SELECT * FROM  alerting.jobs_to_run;
+CREATE view api.jobs AS SELECT * FROM  alerting.jobs;
+CREATE view api.test AS SELECT * FROM  alerting.test;
+

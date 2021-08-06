@@ -6,7 +6,7 @@ VALUES
 INSERT INTO alerting.reports 
 (report_name, report_type, source_type, report_source, creation_date, version)
 VALUES
-('Test Report','scheduled','View','alerting.test',now(),'0.1');
+('Test Report','scheduled','View','/test',now(),'0.1');
 
 INSERT INTO alerting.user_reports
 (user_id, report_id)
@@ -29,4 +29,7 @@ VALUES
  '2020-01-01'			-- Updated on successful run
 ); 
 
-
+CREATE VIEW alerting.test AS (
+    SELECT * FROM ais.pos_reports
+    limit 10
+);
