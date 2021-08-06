@@ -33,7 +33,7 @@ CREATE TABLE public.bad_ports_list (
 );
 
 
-ALTER TABLE public.bad_ports_list OWNER TO postgres;
+-- ALTER TABLE public.bad_ports_list OWNER TO postgres;
 
 --
 -- TOC entry 215 (class 1259 OID 15705700)
@@ -48,7 +48,7 @@ CREATE SEQUENCE public.bad_ports_list_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.bad_ports_list_id_seq OWNER TO postgres;
+-- ALTER TABLE public.bad_ports_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3634 (class 0 OID 0)
@@ -80,7 +80,7 @@ CREATE TABLE public.crew (
 );
 
 
-ALTER TABLE public.crew OWNER TO postgres;
+-- ALTER TABLE public.crew OWNER TO postgres;
 
 --
 -- TOC entry 203 (class 1259 OID 15705609)
@@ -95,7 +95,7 @@ CREATE SEQUENCE public.crew_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.crew_id_seq OWNER TO postgres;
+-- ALTER TABLE public.crew_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3635 (class 0 OID 0)
@@ -127,7 +127,7 @@ CREATE TABLE public.pax (
 );
 
 
-ALTER TABLE public.pax OWNER TO postgres;
+-- ALTER TABLE public.pax OWNER TO postgres;
 
 --
 -- TOC entry 205 (class 1259 OID 15705625)
@@ -142,7 +142,7 @@ CREATE SEQUENCE public.pax_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.pax_id_seq OWNER TO postgres;
+-- ALTER TABLE public.pax_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3636 (class 0 OID 0)
@@ -175,7 +175,7 @@ CREATE TABLE public.pax_other (
 );
 
 
-ALTER TABLE public.pax_other OWNER TO postgres;
+-- ALTER TABLE public.pax_other OWNER TO postgres;
 
 --
 -- TOC entry 209 (class 1259 OID 15705657)
@@ -190,7 +190,7 @@ CREATE SEQUENCE public.pax_other_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.pax_other_id_seq OWNER TO postgres;
+-- ALTER TABLE public.pax_other_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3637 (class 0 OID 0)
@@ -214,7 +214,7 @@ CREATE TABLE public.persons_list (
 );
 
 
-ALTER TABLE public.persons_list OWNER TO postgres;
+-- ALTER TABLE public.persons_list OWNER TO postgres;
 
 --
 -- TOC entry 213 (class 1259 OID 15705689)
@@ -228,8 +228,8 @@ CREATE SEQUENCE public.persons_list_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.persons_list_id_seq OWNER TO postgres;
+-- 
+-- ALTER TABLE public.persons_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3638 (class 0 OID 0)
@@ -258,7 +258,7 @@ CREATE TABLE public.ports_visited (
 );
 
 
-ALTER TABLE public.ports_visited OWNER TO postgres;
+-- ALTER TABLE public.ports_visited OWNER TO postgres;
 
 --
 -- TOC entry 211 (class 1259 OID 15705673)
@@ -273,7 +273,7 @@ CREATE SEQUENCE public.ports_visited_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ports_visited_id_seq OWNER TO postgres;
+-- ALTER TABLE public.ports_visited_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3639 (class 0 OID 0)
@@ -311,7 +311,7 @@ CREATE TABLE public.security (
 );
 
 
-ALTER TABLE public.security OWNER TO postgres;
+-- ALTER TABLE public.security OWNER TO postgres;
 
 --
 -- TOC entry 207 (class 1259 OID 15705641)
@@ -326,7 +326,7 @@ CREATE SEQUENCE public.security_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.security_id_seq OWNER TO postgres;
+-- ALTER TABLE public.security_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3640 (class 0 OID 0)
@@ -351,7 +351,7 @@ CREATE TABLE public.vessel_red_list (
 );
 
 
-ALTER TABLE public.vessel_red_list OWNER TO postgres;
+-- ALTER TABLE public.vessel_red_list OWNER TO postgres;
 
 --
 -- TOC entry 217 (class 1259 OID 15708973)
@@ -365,8 +365,8 @@ CREATE SEQUENCE public.vessel_red_list_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.vessel_red_list_id_seq OWNER TO postgres;
+-- 
+-- ALTER TABLE public.vessel_red_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3641 (class 0 OID 0)
@@ -412,7 +412,7 @@ CREATE TABLE public.vessel_report (
 );
 
 
-ALTER TABLE public.vessel_report OWNER TO postgres;
+-- ALTER TABLE public.vessel_report OWNER TO postgres;
 
 --
 -- TOC entry 201 (class 1259 OID 15705597)
@@ -427,7 +427,7 @@ CREATE SEQUENCE public.vessel_report_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vessel_report_id_seq OWNER TO postgres;
+-- ALTER TABLE public.vessel_report_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3642 (class 0 OID 0)
