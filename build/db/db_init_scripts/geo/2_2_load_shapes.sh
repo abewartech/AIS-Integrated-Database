@@ -13,7 +13,7 @@ fi
 echo '--- Loading World EEZ v11'
 unzip /tmp/shapes/world_eez.zip -d /tmp/unzips/.
 shp2pgsql -W Latin1 -I /tmp/unzips/eez.shp geo.world_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/world_24nm.zip ]; then
@@ -25,7 +25,7 @@ fi
 echo '--- Loading World 24 NM'
 unzip /tmp/shapes/world_24nm.zip -d /tmp/unzips/.
 shp2pgsql -W Latin1 -I /tmp/unzips/eez_24nm.shp geo.eez_24nm | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/world_12nm.zip ]; then
@@ -37,7 +37,7 @@ fi
 echo '--- Loading World 12 NM'
 unzip /tmp/shapes/world_12nm.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/eez_12nm.shp geo.eez_12nm | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/world_int_waters.zip ]; then
@@ -49,7 +49,7 @@ fi
 echo '--- Loading World Internal Waters'
 unzip /tmp/shapes/world_int_waters.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/eez_internal_waters.shp geo.eez_internal_waters | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/world_archi_waters.zip ]; then
@@ -61,7 +61,7 @@ fi
 echo '--- Loading World Archipelagic Waters'
 unzip /tmp/shapes/world_archi_waters.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/eez_archipelagic_waters.shp geo.eez_archipelagic_waters | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/high_seas.zip ]; then
@@ -73,7 +73,7 @@ fi
 echo '--- Loading World High Seas v1' 
 unzip /tmp/shapes/high_seas.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/high_seas.shp geo.oceans_world | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 echo 'Downloading shapefiles from other places'
@@ -87,7 +87,7 @@ fi
 echo '--- Loading World Port Index'
 unzip /tmp/shapes/wpi.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/WPI.shp geo.world_port_index | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/sampaz.zip ]; then
@@ -99,7 +99,7 @@ fi
 echo '--- Loading DEFF SAMPAZ MPA List'
 unzip /tmp/shapes/sampaz.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/SAMPAZ_OR_2021_Q1.shp geo.sampaz | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 if [ ! -f /tmp/shapes/country.zip ]; then
@@ -111,7 +111,7 @@ fi
 echo '--- Loading Country Admin Boundaries'
 unzip /tmp/shapes/country.zip -d /tmp/unzips/
 shp2pgsql -W Latin1 -I /tmp/unzips/ne_50m_admin_0_countries.shp geo.admin_0_countriesd_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-rm -rf ../unzips/*
+rm -rf /tmp/unzips/*
 
 ######################################################
 echo '==============================================='
