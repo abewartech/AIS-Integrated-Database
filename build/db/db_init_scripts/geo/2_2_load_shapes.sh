@@ -11,7 +11,7 @@ else
 fi
 echo '--- Loading World EEZ v11'
 unzip /tmp/shapes/world_eez.zip -d /tmp/unzips/.
-shp2pgsql -I /tmp/unzips/eez_boundaries_v10.shp geo.world_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+shp2pgsql -I /tmp/unzips/eez.shp geo.world_eez | psql -U ${POSTGRES_USER} -d ${POSTGRES_DB}
 rm -rf ../unzips/*
 
 ######################################################
