@@ -23,3 +23,7 @@ CREATE view api.tasks AS SELECT * FROM  alerting.jobs_to_run;
 CREATE view api.jobs AS SELECT * FROM  alerting.jobs;
 CREATE view api.test AS SELECT * FROM  alerting.test;
 
+GRANT USAGE ON SCHEMA api to web_anon;
+GRANT SELECT ON api.tasks TO web_anon;
+GRANT SELECT ON api.jobs TO web_anon;
+GRANT SELECT ON api.test TO web_anon;

@@ -22,6 +22,11 @@ CREATE TABLE testing.foreign_flag_fishing
 COPY testing.foreign_flag_fishing (mmsi, name, callsign, flag_state, last_position_report, dms, longitude, latitude,cog,sog,navigation_status,location)
 FROM '/tmp/dummy_fff_report.csv' DELIMITER ',' CSV HEADER;
 
+
+CREATE view api.foreign_flag_fishing AS SELECT * FROM  testing.foreign_flag_fishing;
+GRANT SELECT ON api.foreign_flag_fishing TO web_anon;
+
+
 -- INSERT testing.foreign_flag_fishing ("MMSI", "Name", "Callsign", "Flag State", "Last Position Report", "DMS", lon, lat, "Course", "Speed", "Nav Status", "Location") FROM stdin;
 -- 224132000, ZUMAYA DOUS, ECBF, Spain, 2021-08-06 11:48:36+00, 31°36'10.698"S 33°51'6.594"E, 33.85183166666667, -31.602971666666665, 127.3, 6.0, \N, South African Exclusive Economic Zone
 -- 416005644, YUN MAO NO.1, \N, Taiwan, 2021-08-06 13:47:47.041006+00, 33°54'18.168"S 18°26'37.230"E, 18.443675, -33.905046666666664, 332.5, 0.0, \N, South African Exclusive Economic Zone
