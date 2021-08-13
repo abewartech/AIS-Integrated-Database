@@ -1,2 +1,4 @@
 ./volumes/data/*
 ./volumes/*
+build/db/scripts_to_run/*
+.env
