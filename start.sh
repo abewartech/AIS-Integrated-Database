@@ -82,7 +82,7 @@ rm -R build/db/scripts_to_run/*
 if [ "${ALL}" == 'TRUE' ];
     then
         echo "ALL tables selected."
-        cp -R build/db/db_init_scripts/ build/db/scripts_to_run/
+        cp -R build/db/db_init_scripts/*/* build/db/scripts_to_run/.
         sleep 2;
 else
     select_tables
