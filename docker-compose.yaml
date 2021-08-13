@@ -47,7 +47,7 @@ services:
     ports:
       - ${POSTGREST_PORT}:3000
     environment:
-      - PGRST_DB_URI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_INTERNAL_PORT}/${POSTGRES_DB}
+      - PGRST_DB_URI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@integrated_db:${DB_INTERNAL_PORT}/${POSTGRES_DB}
       - PGRST_DB_SCHEMA=${API_SCHEMA}
       - PGRST_DB_ANON_ROLE=${PGRST_DB_ANON_ROLE} #In production this role should not be the same as the one used for the connection
 
