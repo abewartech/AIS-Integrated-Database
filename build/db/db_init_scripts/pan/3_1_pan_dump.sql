@@ -21,26 +21,33 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
+
+CREATE SCHEMA pan; 
+
+
+--RAISE NOTICE 'Creating PostGIS Extenstion';
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 --
 -- TOC entry 216 (class 1259 OID 15705702)
 -- Name: bad_ports_list; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.bad_ports_list (
+CREATE TABLE pan.bad_ports_list (
     country text,
     port text,
     id bigint NOT NULL
 );
 
 
--- ALTER TABLE public.bad_ports_list OWNER TO postgres;
+-- ALTER TABLE pan.bad_ports_list OWNER TO postgres;
 
 --
 -- TOC entry 215 (class 1259 OID 15705700)
 -- Name: bad_ports_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.bad_ports_list_id_seq
+CREATE SEQUENCE pan.bad_ports_list_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -48,7 +55,7 @@ CREATE SEQUENCE public.bad_ports_list_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.bad_ports_list_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.bad_ports_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3634 (class 0 OID 0)
@@ -56,7 +63,7 @@ CREATE SEQUENCE public.bad_ports_list_id_seq
 -- Name: bad_ports_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.bad_ports_list_id_seq OWNED BY public.bad_ports_list.id;
+ALTER SEQUENCE pan.bad_ports_list_id_seq OWNED BY pan.bad_ports_list.id;
 
 
 --
@@ -64,7 +71,7 @@ ALTER SEQUENCE public.bad_ports_list_id_seq OWNED BY public.bad_ports_list.id;
 -- Name: crew; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.crew (
+CREATE TABLE pan.crew (
     family_name text,
     given_names text,
     initials text,
@@ -80,14 +87,14 @@ CREATE TABLE public.crew (
 );
 
 
--- ALTER TABLE public.crew OWNER TO postgres;
+-- ALTER TABLE pan.crew OWNER TO postgres;
 
 --
 -- TOC entry 203 (class 1259 OID 15705609)
 -- Name: crew_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.crew_id_seq
+CREATE SEQUENCE pan.crew_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -95,7 +102,7 @@ CREATE SEQUENCE public.crew_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.crew_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.crew_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3635 (class 0 OID 0)
@@ -103,7 +110,7 @@ CREATE SEQUENCE public.crew_id_seq
 -- Name: crew_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.crew_id_seq OWNED BY public.crew.id;
+ALTER SEQUENCE pan.crew_id_seq OWNED BY pan.crew.id;
 
 
 --
@@ -111,7 +118,7 @@ ALTER SEQUENCE public.crew_id_seq OWNED BY public.crew.id;
 -- Name: pax; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.pax (
+CREATE TABLE pan.pax (
     family_name text,
     given_names text,
     initials text,
@@ -127,14 +134,14 @@ CREATE TABLE public.pax (
 );
 
 
--- ALTER TABLE public.pax OWNER TO postgres;
+-- ALTER TABLE pan.pax OWNER TO postgres;
 
 --
 -- TOC entry 205 (class 1259 OID 15705625)
 -- Name: pax_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pax_id_seq
+CREATE SEQUENCE pan.pax_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -142,7 +149,7 @@ CREATE SEQUENCE public.pax_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.pax_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.pax_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3636 (class 0 OID 0)
@@ -150,7 +157,7 @@ CREATE SEQUENCE public.pax_id_seq
 -- Name: pax_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.pax_id_seq OWNED BY public.pax.id;
+ALTER SEQUENCE pan.pax_id_seq OWNED BY pan.pax.id;
 
 
 --
@@ -158,7 +165,7 @@ ALTER SEQUENCE public.pax_id_seq OWNED BY public.pax.id;
 -- Name: pax_other; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.pax_other (
+CREATE TABLE pan.pax_other (
     family_name text,
     given_names text,
     initials text,
@@ -175,14 +182,14 @@ CREATE TABLE public.pax_other (
 );
 
 
--- ALTER TABLE public.pax_other OWNER TO postgres;
+-- ALTER TABLE pan.pax_other OWNER TO postgres;
 
 --
 -- TOC entry 209 (class 1259 OID 15705657)
 -- Name: pax_other_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pax_other_id_seq
+CREATE SEQUENCE pan.pax_other_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -190,7 +197,7 @@ CREATE SEQUENCE public.pax_other_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.pax_other_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.pax_other_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3637 (class 0 OID 0)
@@ -198,7 +205,7 @@ CREATE SEQUENCE public.pax_other_id_seq
 -- Name: pax_other_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.pax_other_id_seq OWNED BY public.pax_other.id;
+ALTER SEQUENCE pan.pax_other_id_seq OWNED BY pan.pax_other.id;
 
 
 --
@@ -206,7 +213,7 @@ ALTER SEQUENCE public.pax_other_id_seq OWNED BY public.pax_other.id;
 -- Name: persons_list; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.persons_list (
+CREATE TABLE pan.persons_list (
     name text,
     travel_doc_num text,
     birth_date date,
@@ -214,14 +221,14 @@ CREATE TABLE public.persons_list (
 );
 
 
--- ALTER TABLE public.persons_list OWNER TO postgres;
+-- ALTER TABLE pan.persons_list OWNER TO postgres;
 
 --
 -- TOC entry 213 (class 1259 OID 15705689)
 -- Name: persons_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.persons_list_id_seq
+CREATE SEQUENCE pan.persons_list_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -229,7 +236,7 @@ CREATE SEQUENCE public.persons_list_id_seq
     CACHE 1;
 
 -- 
--- ALTER TABLE public.persons_list_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.persons_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3638 (class 0 OID 0)
@@ -237,7 +244,7 @@ CREATE SEQUENCE public.persons_list_id_seq
 -- Name: persons_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.persons_list_id_seq OWNED BY public.persons_list.id;
+ALTER SEQUENCE pan.persons_list_id_seq OWNED BY pan.persons_list.id;
 
 
 --
@@ -245,7 +252,7 @@ ALTER SEQUENCE public.persons_list_id_seq OWNED BY public.persons_list.id;
 -- Name: ports_visited; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.ports_visited (
+CREATE TABLE pan.ports_visited (
     country text,
     port text,
     date_visited date,
@@ -258,14 +265,14 @@ CREATE TABLE public.ports_visited (
 );
 
 
--- ALTER TABLE public.ports_visited OWNER TO postgres;
+-- ALTER TABLE pan.ports_visited OWNER TO postgres;
 
 --
 -- TOC entry 211 (class 1259 OID 15705673)
 -- Name: ports_visited_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.ports_visited_id_seq
+CREATE SEQUENCE pan.ports_visited_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -273,7 +280,7 @@ CREATE SEQUENCE public.ports_visited_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.ports_visited_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.ports_visited_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3639 (class 0 OID 0)
@@ -281,7 +288,7 @@ CREATE SEQUENCE public.ports_visited_id_seq
 -- Name: ports_visited_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.ports_visited_id_seq OWNED BY public.ports_visited.id;
+ALTER SEQUENCE pan.ports_visited_id_seq OWNED BY pan.ports_visited.id;
 
 
 --
@@ -289,7 +296,7 @@ ALTER SEQUENCE public.ports_visited_id_seq OWNED BY public.ports_visited.id;
 -- Name: security; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.security (
+CREATE TABLE pan.security (
     family_name text,
     given_names text,
     initials text,
@@ -311,14 +318,14 @@ CREATE TABLE public.security (
 );
 
 
--- ALTER TABLE public.security OWNER TO postgres;
+-- ALTER TABLE pan.security OWNER TO postgres;
 
 --
 -- TOC entry 207 (class 1259 OID 15705641)
 -- Name: security_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.security_id_seq
+CREATE SEQUENCE pan.security_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -326,7 +333,7 @@ CREATE SEQUENCE public.security_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.security_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.security_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3640 (class 0 OID 0)
@@ -334,7 +341,7 @@ CREATE SEQUENCE public.security_id_seq
 -- Name: security_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.security_id_seq OWNED BY public.security.id;
+ALTER SEQUENCE pan.security_id_seq OWNED BY pan.security.id;
 
 
 --
@@ -342,7 +349,7 @@ ALTER SEQUENCE public.security_id_seq OWNED BY public.security.id;
 -- Name: vessel_red_list; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.vessel_red_list (
+CREATE TABLE pan.vessel_red_list (
     callsign text,
     imo text,
     mmsi text,
@@ -351,14 +358,14 @@ CREATE TABLE public.vessel_red_list (
 );
 
 
--- ALTER TABLE public.vessel_red_list OWNER TO postgres;
+-- ALTER TABLE pan.vessel_red_list OWNER TO postgres;
 
 --
 -- TOC entry 217 (class 1259 OID 15708973)
 -- Name: vessel_red_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.vessel_red_list_id_seq
+CREATE SEQUENCE pan.vessel_red_list_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -366,7 +373,7 @@ CREATE SEQUENCE public.vessel_red_list_id_seq
     CACHE 1;
 
 -- 
--- ALTER TABLE public.vessel_red_list_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.vessel_red_list_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3641 (class 0 OID 0)
@@ -374,7 +381,7 @@ CREATE SEQUENCE public.vessel_red_list_id_seq
 -- Name: vessel_red_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.vessel_red_list_id_seq OWNED BY public.vessel_red_list.id;
+ALTER SEQUENCE pan.vessel_red_list_id_seq OWNED BY pan.vessel_red_list.id;
 
 
 --
@@ -382,7 +389,7 @@ ALTER SEQUENCE public.vessel_red_list_id_seq OWNED BY public.vessel_red_list.id;
 -- Name: vessel_report; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.vessel_report (
+CREATE TABLE pan.vessel_report (
     name text,
     imo text,
     callsign text,
@@ -412,14 +419,14 @@ CREATE TABLE public.vessel_report (
 );
 
 
--- ALTER TABLE public.vessel_report OWNER TO postgres;
+-- ALTER TABLE pan.vessel_report OWNER TO postgres;
 
 --
 -- TOC entry 201 (class 1259 OID 15705597)
 -- Name: vessel_report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.vessel_report_id_seq
+CREATE SEQUENCE pan.vessel_report_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -427,7 +434,7 @@ CREATE SEQUENCE public.vessel_report_id_seq
     CACHE 1;
 
 
--- ALTER TABLE public.vessel_report_id_seq OWNER TO postgres;
+-- ALTER TABLE pan.vessel_report_id_seq OWNER TO postgres;
 
 --
 -- TOC entry 3642 (class 0 OID 0)
@@ -435,7 +442,7 @@ CREATE SEQUENCE public.vessel_report_id_seq
 -- Name: vessel_report_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.vessel_report_id_seq OWNED BY public.vessel_report.id;
+ALTER SEQUENCE pan.vessel_report_id_seq OWNED BY pan.vessel_report.id;
 
 
 --
@@ -443,7 +450,7 @@ ALTER SEQUENCE public.vessel_report_id_seq OWNED BY public.vessel_report.id;
 -- Name: bad_ports_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.bad_ports_list ALTER COLUMN id SET DEFAULT nextval('public.bad_ports_list_id_seq'::regclass);
+ALTER TABLE ONLY pan.bad_ports_list ALTER COLUMN id SET DEFAULT nextval('public.bad_ports_list_id_seq'::regclass);
 
 
 --
@@ -451,7 +458,7 @@ ALTER TABLE ONLY public.bad_ports_list ALTER COLUMN id SET DEFAULT nextval('publ
 -- Name: crew id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.crew ALTER COLUMN id SET DEFAULT nextval('public.crew_id_seq'::regclass);
+ALTER TABLE ONLY pan.crew ALTER COLUMN id SET DEFAULT nextval('public.crew_id_seq'::regclass);
 
 
 --
@@ -459,7 +466,7 @@ ALTER TABLE ONLY public.crew ALTER COLUMN id SET DEFAULT nextval('public.crew_id
 -- Name: pax id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax ALTER COLUMN id SET DEFAULT nextval('public.pax_id_seq'::regclass);
+ALTER TABLE ONLY pan.pax ALTER COLUMN id SET DEFAULT nextval('public.pax_id_seq'::regclass);
 
 
 --
@@ -467,7 +474,7 @@ ALTER TABLE ONLY public.pax ALTER COLUMN id SET DEFAULT nextval('public.pax_id_s
 -- Name: pax_other id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax_other ALTER COLUMN id SET DEFAULT nextval('public.pax_other_id_seq'::regclass);
+ALTER TABLE ONLY pan.pax_other ALTER COLUMN id SET DEFAULT nextval('public.pax_other_id_seq'::regclass);
 
 
 --
@@ -475,7 +482,7 @@ ALTER TABLE ONLY public.pax_other ALTER COLUMN id SET DEFAULT nextval('public.pa
 -- Name: persons_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.persons_list ALTER COLUMN id SET DEFAULT nextval('public.persons_list_id_seq'::regclass);
+ALTER TABLE ONLY pan.persons_list ALTER COLUMN id SET DEFAULT nextval('public.persons_list_id_seq'::regclass);
 
 
 --
@@ -483,7 +490,7 @@ ALTER TABLE ONLY public.persons_list ALTER COLUMN id SET DEFAULT nextval('public
 -- Name: ports_visited id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.ports_visited ALTER COLUMN id SET DEFAULT nextval('public.ports_visited_id_seq'::regclass);
+ALTER TABLE ONLY pan.ports_visited ALTER COLUMN id SET DEFAULT nextval('public.ports_visited_id_seq'::regclass);
 
 
 --
@@ -491,7 +498,7 @@ ALTER TABLE ONLY public.ports_visited ALTER COLUMN id SET DEFAULT nextval('publi
 -- Name: security id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.security ALTER COLUMN id SET DEFAULT nextval('public.security_id_seq'::regclass);
+ALTER TABLE ONLY pan.security ALTER COLUMN id SET DEFAULT nextval('public.security_id_seq'::regclass);
 
 
 --
@@ -499,7 +506,7 @@ ALTER TABLE ONLY public.security ALTER COLUMN id SET DEFAULT nextval('public.sec
 -- Name: vessel_red_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.vessel_red_list ALTER COLUMN id SET DEFAULT nextval('public.vessel_red_list_id_seq'::regclass);
+ALTER TABLE ONLY pan.vessel_red_list ALTER COLUMN id SET DEFAULT nextval('public.vessel_red_list_id_seq'::regclass);
 
 
 --
@@ -507,7 +514,7 @@ ALTER TABLE ONLY public.vessel_red_list ALTER COLUMN id SET DEFAULT nextval('pub
 -- Name: vessel_report id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.vessel_report ALTER COLUMN id SET DEFAULT nextval('public.vessel_report_id_seq'::regclass);
+ALTER TABLE ONLY pan.vessel_report ALTER COLUMN id SET DEFAULT nextval('public.vessel_report_id_seq'::regclass);
 
 
 --
@@ -515,7 +522,7 @@ ALTER TABLE ONLY public.vessel_report ALTER COLUMN id SET DEFAULT nextval('publi
 -- Name: bad_ports_list bad_ports_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.bad_ports_list
+ALTER TABLE ONLY pan.bad_ports_list
     ADD CONSTRAINT bad_ports_list_pkey PRIMARY KEY (id);
 
 
@@ -524,7 +531,7 @@ ALTER TABLE ONLY public.bad_ports_list
 -- Name: crew crew_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.crew
+ALTER TABLE ONLY pan.crew
     ADD CONSTRAINT crew_pkey PRIMARY KEY (id);
 
 
@@ -533,7 +540,7 @@ ALTER TABLE ONLY public.crew
 -- Name: pax_other pax_other_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax_other
+ALTER TABLE ONLY pan.pax_other
     ADD CONSTRAINT pax_other_pkey PRIMARY KEY (id);
 
 
@@ -542,7 +549,7 @@ ALTER TABLE ONLY public.pax_other
 -- Name: pax pax_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax
+ALTER TABLE ONLY pan.pax
     ADD CONSTRAINT pax_pkey PRIMARY KEY (id);
 
 
@@ -551,7 +558,7 @@ ALTER TABLE ONLY public.pax
 -- Name: persons_list persons_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.persons_list
+ALTER TABLE ONLY pan.persons_list
     ADD CONSTRAINT persons_list_pkey PRIMARY KEY (id);
 
 
@@ -560,7 +567,7 @@ ALTER TABLE ONLY public.persons_list
 -- Name: ports_visited ports_visited_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.ports_visited
+ALTER TABLE ONLY pan.ports_visited
     ADD CONSTRAINT ports_visited_pkey PRIMARY KEY (id);
 
 
@@ -569,7 +576,7 @@ ALTER TABLE ONLY public.ports_visited
 -- Name: security security_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.security
+ALTER TABLE ONLY pan.security
     ADD CONSTRAINT security_pkey PRIMARY KEY (id);
 
 
@@ -578,7 +585,7 @@ ALTER TABLE ONLY public.security
 -- Name: vessel_red_list vessel_red_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.vessel_red_list
+ALTER TABLE ONLY pan.vessel_red_list
     ADD CONSTRAINT vessel_red_list_pkey PRIMARY KEY (id);
 
 
@@ -587,7 +594,7 @@ ALTER TABLE ONLY public.vessel_red_list
 -- Name: vessel_report vessel_report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.vessel_report
+ALTER TABLE ONLY pan.vessel_report
     ADD CONSTRAINT vessel_report_pkey PRIMARY KEY (id);
 
 
@@ -596,7 +603,7 @@ ALTER TABLE ONLY public.vessel_report
 -- Name: vessel_report_report_time_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX vessel_report_report_time_idx ON public.vessel_report USING btree (report_time);
+CREATE INDEX vessel_report_report_time_idx ON pan.vessel_report USING btree (report_time);
 
 
 --
@@ -604,8 +611,8 @@ CREATE INDEX vessel_report_report_time_idx ON public.vessel_report USING btree (
 -- Name: crew crew_vessel_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.crew
-    ADD CONSTRAINT crew_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES public.vessel_report(id) ON DELETE CASCADE;
+ALTER TABLE ONLY pan.crew
+    ADD CONSTRAINT crew_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES pan.vessel_report(id) ON DELETE CASCADE;
 
 
 --
@@ -613,8 +620,8 @@ ALTER TABLE ONLY public.crew
 -- Name: pax_other pax_other_vessel_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax_other
-    ADD CONSTRAINT pax_other_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES public.vessel_report(id) ON DELETE CASCADE;
+ALTER TABLE ONLY pan.pax_other
+    ADD CONSTRAINT pax_other_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES pan.vessel_report(id) ON DELETE CASCADE;
 
 
 --
@@ -622,8 +629,8 @@ ALTER TABLE ONLY public.pax_other
 -- Name: pax pax_vessel_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.pax
-    ADD CONSTRAINT pax_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES public.vessel_report(id) ON DELETE CASCADE;
+ALTER TABLE ONLY pan.pax
+    ADD CONSTRAINT pax_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES pan.vessel_report(id) ON DELETE CASCADE;
 
 
 --
@@ -631,8 +638,8 @@ ALTER TABLE ONLY public.pax
 -- Name: ports_visited ports_visited_vessel_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.ports_visited
-    ADD CONSTRAINT ports_visited_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES public.vessel_report(id) ON DELETE CASCADE;
+ALTER TABLE ONLY pan.ports_visited
+    ADD CONSTRAINT ports_visited_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES pan.vessel_report(id) ON DELETE CASCADE;
 
 
 --
@@ -640,8 +647,8 @@ ALTER TABLE ONLY public.ports_visited
 -- Name: security security_vessel_report_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.security
-    ADD CONSTRAINT security_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES public.vessel_report(id) ON DELETE CASCADE;
+ALTER TABLE ONLY pan.security
+    ADD CONSTRAINT security_vessel_report_id_fkey FOREIGN KEY (vessel_report_id) REFERENCES pan.vessel_report(id) ON DELETE CASCADE;
 
 
 -- Completed on 2021-07-28 08:20:54 UTC

@@ -1,4 +1,57 @@
+CREATE view ais.dffe_daily_report as 
+(
+WITH rsa_eez AS
+	(
+	SELECT 
+		ST_Simplify(geom,0.1) as geom,
+		geoname as name		
+	FROM geo.ocean_geom 
+	WHERE geoname like '%South Africa%'
+	)
+
+	
+SELECT DISTINCT ON (aa.mmsi)
+	cc.callsign as "Callsign",
+	cc.flag_state as "Country (From MMSI)",
+	aa.cog as "Course of Ground",
+	cc.imo as "IMO",
+	aa.latitude as "Latitude",
+	aa.longitude as "Longitude",
+	bb.name as "Location", 
+	ST_AsLatLonText(aa.position, 'D°M''S.SSS"') as "Position (DMS)",
+	aa.mmsi as "MMSI",
+	cc.name as "Vessel Name",
+	aa.sog as "Speed Knots", 
+	cc.type_and_cargo_text as "Reported Class"
+FROM 
+	rsa_eez as bb,
+	ais.pos_reports_30min_cagg as aa
+JOIN
+	ais.ship_details_agg as cc
+ON	
+	cc.mmsi = aa.mmsi
+WHERE
+	aa.mmsi not like '601%'
+AND
+	ST_Within(aa.position, bb.geom)
+AND
+	aa.bucket > now() - interval '25 hours' 
+AND
+	cc.type_and_cargo = '30'
+ORDER BY aa.mmsi, bucket desc, bb.name
+) ;
+
+
+CREATE OR REPLACE VIEW api.report_fff
+ AS
+ SELECT * FROM ais.dffe_daily_report;
  
+GRANT SELECT ON TABLE api.report_fff TO web_anon;
+GRANT SELECT ON ais.pos_reports_30min_cagg TO web_anon;
+
+
+
+
 -- -- CREATE OR REPLACE FUNCTION api_schema.ais_geom_events(
 -- -- 	mmsi text,
 -- -- 	begin_time timestamp without time zone,
