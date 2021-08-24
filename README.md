@@ -32,6 +32,10 @@ Test it out via the following steps.
         docker-compose build
         docker-compose up -d
 * When complete, open "your_machine:12001" in a browser to see the API in action. 
-* Some nice ones are:
-  * **"tasks"** that show the tasks/alerts/reports that need to be generated for each user
-  * **"foreign_flag_fishing"** that pulls a dummy table for daily fishing reports
+ 
+
+  Current API endpoints are:
+
+* /tasks - Returns a lists of users and the reports that they require
+* /report_fff - Returns a list of foreign flag fishing vessels in RSA waters over the last 24h
+* /alert_data_sources - Returns the datasources that have had no new inputs within 2h
