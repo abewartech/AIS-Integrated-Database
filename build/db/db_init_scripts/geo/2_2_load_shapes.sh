@@ -1,7 +1,7 @@
 #!/bin/bash
 echo 'Downloading shapefiles from Marine Regions WFS...'
-mkdir -p /tmp/shapes
-mkdir -p /tmp/unzips
+mkdir -p /tmp/shapes/
+mkdir -p /tmp/unzips/
 rm -rf /tmp/unzips/*
 
 if [ ! -f /tmp/shapes/world_eez.zip ]; then
