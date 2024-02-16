@@ -1,3 +1,4 @@
+# Dockerfile for production instance
 FROM timescale/timescaledb-ha:pg16.1-ts2.13.1
 USER root
 RUN  apt-get update \
@@ -5,8 +6,7 @@ RUN  apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER postgres
 # Select which scripts to run on first DB startup:
-# COPY ./build/db/db_init_scripts/ais /docker-entrypoint-initdb.d/
+COPY ./build/db_init_scripts /docker-entrypoint-initdb.d/
 COPY ./build/db/db_init_scripts/geo /docker-entrypoint-initdb.d/
-COPY ./build/db/db_init_data /tmp/
-RUN mkdir /tmp/unzips
-# RUN chmod +777 /tmp/unzips
+COPY ./build/db_init_data /tmp/db_init_data/
+RUN mkdir /tmp/unzips 

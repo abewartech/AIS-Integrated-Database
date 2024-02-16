@@ -56,7 +56,7 @@ services:
   # Traefik network.
     image: pramsey/pg_featureserv:${PGFEATSERV_TAG}
     container_name: featserv
-    restart: unless-stopped
+    # restart: unless-stopped
     depends_on:
       database:
         condition: service_healthy
