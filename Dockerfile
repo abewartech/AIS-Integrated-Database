@@ -5,7 +5,7 @@ RUN  apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER postgres
 # Select which scripts to run on first DB startup:
-COPY ./build/db/db_init_scripts/ais /docker-entrypoint-initdb.d/
+# COPY ./build/db/db_init_scripts/ais /docker-entrypoint-initdb.d/
 COPY ./build/db/db_init_scripts/geo /docker-entrypoint-initdb.d/
 COPY ./build/db/db_init_data /tmp/
 RUN mkdir /tmp/unzips

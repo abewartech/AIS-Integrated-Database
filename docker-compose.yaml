@@ -1,42 +1,82 @@
-version: '3.2'
-services:  
-  integrated_db:
-  # The database that holds all the integrated data and maybe some other nice to have's like:
-  #   - World Port Index'
-  #   - World EEZ shapefile
-  # The schema is also set up in the start up scripts. You must add the scripts you want into the script dir
-  # to build those schemas. 
-  # https://hub.docker.com/r/timescale/timescaledb-postgis/tags
-    container_name: ${PROJECT_NAME}_db
-    hostname: ${DB_HOST}
-    # image: timescale/timescaledb-postgis:${TIMESCALE_TAG}
-    # Above image used old 2.x version of postgis. Below image uses postgis 3.1
-    # image: timescale/timescaledb-ha:${TIMESCALE_TAG}
-    # Dockerfile below has wget and shp2pgsql installed on it
-    build: ./build/db/.
-    shm_size: 12g
-    command: postgres -c shared_preload_libraries=timescaledb
-    ports:
-      - ${DB_EXT_PORT}:${DB_INT_PORT}
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_UID=${UID}
-      - POSTGRES_GID=${GID}
-    # volumes:
-## Volume commented out to test building of DB. Uncomment for DB persisitance
-#      - ./volumes/db/:/var/lib/postgresql/data
-      # - ./build/db/scripts_to_run:/docker-entrypoint-initdb.d/ 
-      # - ./build/db/db_init_data/:/tmp
+version: "3.7"
+#===============================
+# What's this?
+#===============================
+# This is a docker compose file inteneded for use in a dev/local environment. 
+# Developers should run this in order to test things like the docker building,
+# API testing and SQL queries. Not intended for production/staging deployment.
 
-    restart: unless-stopped
-    networks:
-      - db_net
-    logging:
+#===============================
+# Compose extension fields
+#===============================
+x-logging:
+  &default-logging
       driver: json-file
       options:
         max-size: 10m
- 
+
+#===============================
+services: 
+#===============================
+  database:
+  # High availablity version of PG with
+  # Timescaledb and PostGIS extensions installed.
+  # https://github.com/timescale/timescaledb-docker-ha
+    build: 
+      context: .
+      dockerfile: Dockerfile-dev
+    container_name: ${DB_HOST}
+    user: ${UID}:${GID}
+    shm_size: 4g
+    command: postgres -c shared_preload_libraries=timescaledb
+    # restart: unless-stopped
+    networks:
+      - back_end
+    ports:
+      - ${DB_EXT_PORT}:5432
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_UID=${UID}
+      - POSTGRES_GID=${GID}
+    # volumes:
+    ## Volume commented out to test building of DB. 
+    ## Uncomment when requiring persistance
+      # - ./volumes/db/:/var/lib/postgresql/data
+  
+  featserv:
+  # This is a template for a service that is not made available on the  
+  # Traefik network.
+    image: pramsey/pg_featureserv:${PGFEATSERV_TAG}
+    container_name: featserv
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - back_end
+    ports:
+      - ${API_PORT}:9000
+    logging: *default-logging
+    environment:
+      - DATABASE_URL=postgresql://api:Secure_API_Password@${DB_HOST}/${DB_NAME}
+
+#===============================
+# volumes:
+#===============================
+#   rabbit_data:
+#   rabbit_etc:
+
+#===============================
 networks:
-    db_net:
+#===============================
+  back_end:
+
+

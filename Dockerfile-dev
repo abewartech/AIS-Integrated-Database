@@ -4,7 +4,9 @@ RUN  apt-get update \
   && apt-get install -y wget postgis unzip \
   && rm -rf /var/lib/apt/lists/*
 USER postgres
-COPY scripts_to_run /docker-entrypoint-initdb.d/
-COPY db_init_data /tmp/
+# Select which scripts to run on first DB startup:
+COPY ./build/db_init_scripts /docker-entrypoint-initdb.d/
+# COPY ./build/db/db_init_scripts/geo /docker-entrypoint-initdb.d/
+COPY ./build/db_init_data /tmp/db_init_data/
 RUN mkdir /tmp/unzips
 # RUN chmod +777 /tmp/unzips
