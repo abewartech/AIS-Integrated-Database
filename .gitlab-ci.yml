@@ -59,4 +59,12 @@ docker-testing:
   stage: test
   script:
     - docker run -d --env-file=./config/sample.env $CI_REGISTRY_IMAGE${tag}
+  rules:
+    # Only do tests if in master or staging.
+    - if: $CI_COMMIT_BRANCH  && $CI_COMMIT_BRANCH == "staging"
+      exists:
+        - Dockerfile-dev
+    - if: $CI_COMMIT_BRANCH  && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - Dockerfile
 
