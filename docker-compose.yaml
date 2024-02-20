@@ -24,7 +24,7 @@ services:
   # https://github.com/timescale/timescaledb-docker-ha
     build: 
       context: .
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile
     container_name: ${DB_HOST}
     user: ${UID}:${GID}
     shm_size: 4g
