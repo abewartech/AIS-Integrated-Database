@@ -41,7 +41,7 @@ docker-staging-build:
     - |
       tag=":$CI_COMMIT_REF_SLUG"
       echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
-    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}"  --file ./Dockerfile-dev
+    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}"  --file ./Dockerfile-staging .
     - docker push "$CI_REGISTRY_IMAGE${tag}"
 
   # Run this job when in Staging and if a dockerfile exists.
