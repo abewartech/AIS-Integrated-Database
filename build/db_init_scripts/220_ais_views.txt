@@ -1,0 +1,262 @@
+
+/*
+██████╗░███████╗██████╗░██████╗░███████╗░█████╗░░█████╗░████████╗███████╗██████╗░
+██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
+██║░░██║█████╗░░██████╔╝██████╔╝█████╗░░██║░░╚═╝███████║░░░██║░░░█████╗░░██║░░██║
+██║░░██║██╔══╝░░██╔═══╝░██╔══██╗██╔══╝░░██║░░██╗██╔══██║░░░██║░░░██╔══╝░░██║░░██║
+██████╔╝███████╗██║░░░░░██║░░██║███████╗╚█████╔╝██║░░██║░░░██║░░░███████╗██████╔╝
+╚═════╝░╚══════╝╚═╝░░░░░╚═╝░░╚═╝╚══════╝░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚══════╝╚═════╝░
+*/
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+
+ALTER MATERIALIZED VIEW ais.latest_vessel_details OWNER TO vliz;
+
+
+--
+-- Name: pos_reports_1h_cagg; Type: VIEW; Schema: ais; Owner: vliz
+--
+
+CREATE VIEW ais.pos_reports_1h_cagg AS
+ SELECT _materialized_hypertable_4.mmsi,
+    _materialized_hypertable_4.routing_key,
+    _materialized_hypertable_4.bucket,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,varchar},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_4_4, NULL::character varying) AS navigation_status,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_5_5, NULL::smallint) AS rot,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,numeric},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_6_6, NULL::numeric) AS sog,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,float8},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_7_7, NULL::double precision) AS longitude,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,float8},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_8_8, NULL::double precision) AS latitude,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{public,geometry},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_9_9, NULL::public.geometry) AS "position",
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,numeric},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_10_10, NULL::numeric) AS cog,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,numeric},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_11_11, NULL::numeric) AS hdg,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,timestamptz},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_12_12, NULL::timestamp with time zone) AS event_time,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,varchar},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_4.agg_13_13, NULL::character varying) AS msg_type,
+    _timescaledb_internal.finalize_agg('pg_catalog.avg(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_14_14, NULL::numeric) AS sog_avg,
+    _timescaledb_internal.finalize_agg('pg_catalog.min(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_15_15, NULL::numeric) AS sog_min,
+    _timescaledb_internal.finalize_agg('pg_catalog.max(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_16_16, NULL::numeric) AS sog_max,
+    _timescaledb_internal.finalize_agg('pg_catalog.avg(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_17_17, NULL::numeric) AS cog_avg,
+    _timescaledb_internal.finalize_agg('pg_catalog.min(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_18_18, NULL::numeric) AS cog_min,
+    _timescaledb_internal.finalize_agg('pg_catalog.max(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_19_19, NULL::numeric) AS cog_max,
+    _timescaledb_internal.finalize_agg('pg_catalog.avg(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_20_20, NULL::numeric) AS hdg_avg,
+    _timescaledb_internal.finalize_agg('pg_catalog.min(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_21_21, NULL::numeric) AS hdg_min,
+    _timescaledb_internal.finalize_agg('pg_catalog.max(numeric)'::text, NULL::name, NULL::name, '{{pg_catalog,numeric}}'::name[], _materialized_hypertable_4.agg_22_22, NULL::numeric) AS hdg_max
+   FROM _timescaledb_internal._materialized_hypertable_4
+  WHERE (_materialized_hypertable_4.bucket < COALESCE(_timescaledb_internal.to_timestamp(_timescaledb_internal.cagg_watermark(4)), '-infinity'::timestamp with time zone))
+  GROUP BY _materialized_hypertable_4.mmsi, _materialized_hypertable_4.routing_key, _materialized_hypertable_4.bucket
+UNION ALL
+ SELECT pos_reports.mmsi,
+    pos_reports.routing_key,
+    public.time_bucket('01:00:00'::interval, pos_reports.event_time) AS bucket,
+    public.last(pos_reports.navigation_status, pos_reports.event_time) AS navigation_status,
+    public.last(pos_reports.rot, pos_reports.event_time) AS rot,
+    public.last(pos_reports.sog, pos_reports.event_time) AS sog,
+    public.last(pos_reports.longitude, pos_reports.event_time) AS longitude,
+    public.last(pos_reports.latitude, pos_reports.event_time) AS latitude,
+    public.last(pos_reports."position", pos_reports.event_time) AS "position",
+    public.last(pos_reports.cog, pos_reports.event_time) AS cog,
+    public.last(pos_reports.hdg, pos_reports.event_time) AS hdg,
+    public.last(pos_reports.event_time, pos_reports.event_time) AS event_time,
+    public.last(pos_reports.msg_type, pos_reports.event_time) AS msg_type,
+    avg(pos_reports.sog) AS sog_avg,
+    min(pos_reports.sog) AS sog_min,
+    max(pos_reports.sog) AS sog_max,
+    avg(pos_reports.cog) AS cog_avg,
+    min(pos_reports.cog) AS cog_min,
+    max(pos_reports.cog) AS cog_max,
+    avg(pos_reports.hdg) AS hdg_avg,
+    min(pos_reports.hdg) AS hdg_min,
+    max(pos_reports.hdg) AS hdg_max
+   FROM ais.pos_reports
+  WHERE (pos_reports.event_time >= COALESCE(_timescaledb_internal.to_timestamp(_timescaledb_internal.cagg_watermark(4)), '-infinity'::timestamp with time zone))
+  GROUP BY pos_reports.mmsi, pos_reports.routing_key, (public.time_bucket('01:00:00'::interval, pos_reports.event_time));
+
+
+ALTER VIEW ais.pos_reports_1h_cagg OWNER TO vliz;
+
+--
+-- Name: oostend_traffic; Type: MATERIALIZED VIEW; Schema: ais; Owner: vliz
+--
+
+CREATE MATERIALIZED VIEW ais.oostend_traffic AS
+ SELECT pos_reports_1h_cagg.mmsi,
+    public.st_setsrid(public.st_makeline(pos_reports_1h_cagg."position" ORDER BY pos_reports_1h_cagg.bucket), 4326) AS geom,
+    public.st_astext(public.st_setsrid(public.st_makeline(pos_reports_1h_cagg."position" ORDER BY pos_reports_1h_cagg.bucket), 4326)) AS st_astext
+   FROM ais.pos_reports_1h_cagg
+  WHERE ((pos_reports_1h_cagg.bucket >= (now() - '24:00:00'::interval)) AND (pos_reports_1h_cagg.bucket <= now()))
+  GROUP BY pos_reports_1h_cagg.mmsi
+  WITH NO DATA;
+
+
+ALTER MATERIALIZED VIEW ais.oostend_traffic OWNER TO vliz;
+
+
+--
+-- Name: vessel_details; Type: VIEW; Schema: ais; Owner: vliz
+--
+
+CREATE VIEW ais.vessel_details AS
+ SELECT DISTINCT ON (aa.mmsi) aa.mmsi,
+    aa.bucket,
+    btrim(aa.callsign, '@'::text) AS callsign,
+    btrim(aa.destination, '@'::text) AS destination,
+    btrim(aa.imo, '@'::text) AS imo,
+    btrim(aa.name, '@'::text) AS name,
+    aa.draught,
+    aa.eta,
+    aa.latest_voy_report_timestamp,
+    aa.fix_type,
+    aa.msg_type,
+    aa.routing_key,
+    (aa.to_bow + aa.to_stern) AS length,
+    (aa.to_port + aa.to_starboard) AS width,
+    aa.type_and_cargo,
+    aa.text_type,
+    aa.text_sub_type,
+    aa.mid_country
+   FROM (ais.latest_vessel_details aa
+     LEFT JOIN ais.aishub_primer_vessels bb ON ((aa.mmsi = bb.mmsi)))
+  ORDER BY aa.mmsi, aa.bucket DESC;
+
+
+ALTER VIEW ais.vessel_details OWNER TO vliz;
+
+--
+-- Name: vessel_trajectories; Type: VIEW; Schema: ais; Owner: vliz
+--
+
+CREATE VIEW ais.vessel_trajectories AS
+ SELECT trajectories.mmsi,
+    date(trajectories.first_time) AS date,
+    trajectories.first_time,
+    trajectories.last_time,
+    trajectories.geom_length,
+    (trajectories.geom)::public.geometry(LineString,4326) AS geom,
+    latest_voy_reports.imo,
+    latest_voy_reports.callsign,
+    latest_voy_reports.name,
+    latest_voy_reports.type_and_cargo,
+    ais_num_to_type.type,
+    ais_num_to_type.sub_type
+   FROM ((ais.trajectories
+     LEFT JOIN ais.latest_voy_reports ON ((latest_voy_reports.mmsi = trajectories.mmsi)))
+     LEFT JOIN ais.ais_num_to_type ON (((latest_voy_reports.type_and_cargo)::text = (ais_num_to_type.ais_num)::text)))
+  WHERE (trajectories.geom_length > (0)::double precision);
+
+
+ALTER VIEW ais.vessel_trajectories OWNER TO vliz;
+
+--
+-- Name: VIEW vessel_trajectories; Type: COMMENT; Schema: ais; Owner: vliz
+--
+
+COMMENT ON VIEW ais.vessel_trajectories IS 'Trajectories for vessels. AIS points are grouped by MMSI but split by gaps in time (greater than 1 hour), jumps in distance, or gaps in distance (greater than 0.1 deg), or where calculated speed is too great (from duplicate MMSI''s). Calculated using stored procedure is ais.build_trajectories(integer, jsonb)';
+
+
+--
+-- Name: voy_reports_6h_cagg; Type: VIEW; Schema: ais; Owner: vliz
+--
+
+CREATE VIEW ais.voy_reports_6h_cagg AS
+ SELECT _materialized_hypertable_5.mmsi,
+    _materialized_hypertable_5.routing_key,
+    _materialized_hypertable_5.bucket,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,text},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_4_4, NULL::text) AS imo,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,text},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_5_5, NULL::text) AS callsign,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,text},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_6_6, NULL::text) AS name,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,varchar},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_7_7, NULL::character varying) AS type_and_cargo,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_8_8, NULL::smallint) AS to_bow,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_9_9, NULL::smallint) AS to_stern,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_10_10, NULL::smallint) AS to_port,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_11_11, NULL::smallint) AS to_starboard,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,int2},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_12_12, NULL::smallint) AS fix_type,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,timestamptz},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_13_13, NULL::timestamp with time zone) AS eta,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,numeric},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_14_14, NULL::numeric) AS draught,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,text},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_15_15, NULL::text) AS destination,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, NULL::name, NULL::name, '{{pg_catalog,timestamptz},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_16_16, NULL::timestamp with time zone) AS event_time,
+    _timescaledb_internal.finalize_agg('public.last(pg_catalog.anyelement,pg_catalog."any")'::text, 'pg_catalog'::name, 'default'::name, '{{pg_catalog,varchar},{pg_catalog,timestamptz}}'::name[], _materialized_hypertable_5.agg_17_17, NULL::character varying) AS msg_type
+   FROM _timescaledb_internal._materialized_hypertable_5
+  WHERE (_materialized_hypertable_5.bucket < COALESCE(_timescaledb_internal.to_timestamp(_timescaledb_internal.cagg_watermark(5)), '-infinity'::timestamp with time zone))
+  GROUP BY _materialized_hypertable_5.mmsi, _materialized_hypertable_5.routing_key, _materialized_hypertable_5.bucket
+UNION ALL
+ SELECT voy_reports.mmsi,
+    voy_reports.routing_key,
+    public.time_bucket('06:00:00'::interval, voy_reports.event_time) AS bucket,
+    public.last(voy_reports.imo, voy_reports.event_time) AS imo,
+    public.last(voy_reports.callsign, voy_reports.event_time) AS callsign,
+    public.last(voy_reports.name, voy_reports.event_time) AS name,
+    public.last(voy_reports.type_and_cargo, voy_reports.event_time) AS type_and_cargo,
+    public.last(voy_reports.to_bow, voy_reports.event_time) AS to_bow,
+    public.last(voy_reports.to_stern, voy_reports.event_time) AS to_stern,
+    public.last(voy_reports.to_port, voy_reports.event_time) AS to_port,
+    public.last(voy_reports.to_starboard, voy_reports.event_time) AS to_starboard,
+    public.last(voy_reports.fix_type, voy_reports.event_time) AS fix_type,
+    public.last(voy_reports.eta, voy_reports.event_time) AS eta,
+    public.last(voy_reports.draught, voy_reports.event_time) AS draught,
+    public.last(voy_reports.destination, voy_reports.event_time) AS destination,
+    public.last(voy_reports.event_time, voy_reports.event_time) AS event_time,
+    public.last(voy_reports.msg_type, voy_reports.event_time) AS msg_type
+   FROM ais.voy_reports
+  WHERE (voy_reports.event_time >= COALESCE(_timescaledb_internal.to_timestamp(_timescaledb_internal.cagg_watermark(5)), '-infinity'::timestamp with time zone))
+  GROUP BY voy_reports.mmsi, voy_reports.routing_key, (public.time_bucket('06:00:00'::interval, voy_reports.event_time));
+
+
+ALTER VIEW ais.voy_reports_6h_cagg OWNER TO vliz;
+
+
+--
+-- Name: TABLE latest_vessel_details; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT SELECT ON TABLE ais.latest_vessel_details TO readaccess;
+GRANT INSERT ON TABLE ais.latest_vessel_details TO inserter;
+
+
+--
+-- Name: TABLE pos_reports_1h_cagg; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT SELECT ON TABLE ais.pos_reports_1h_cagg TO vliz_grafana;
+GRANT SELECT ON TABLE ais.pos_reports_1h_cagg TO readaccess;
+GRANT INSERT ON TABLE ais.pos_reports_1h_cagg TO inserter;
+
+
+--
+-- Name: TABLE oostend_traffic; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT SELECT ON TABLE ais.oostend_traffic TO vliz_grafana;
+GRANT SELECT ON TABLE ais.oostend_traffic TO readaccess;
+GRANT INSERT ON TABLE ais.oostend_traffic TO inserter;
+
+
+--
+-- Name: TABLE vessel_details; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT SELECT ON TABLE ais.vessel_details TO readaccess;
+GRANT INSERT ON TABLE ais.vessel_details TO inserter;
+
+
+--
+-- Name: TABLE vessel_trajectories; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT INSERT ON TABLE ais.vessel_trajectories TO inserter;
+
+
+--
+-- Name: TABLE voy_reports_6h_cagg; Type: ACL; Schema: ais; Owner: vliz
+--
+
+GRANT SELECT ON TABLE ais.voy_reports_6h_cagg TO vliz_grafana;
+GRANT SELECT ON TABLE ais.voy_reports_6h_cagg TO readaccess;
+GRANT INSERT ON TABLE ais.voy_reports_6h_cagg TO inserter;

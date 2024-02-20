@@ -42,4 +42,3 @@ How is this done?
 # Backups
 How is this done? 
 I know PostGres docker images generally have a backup tool. 
-
