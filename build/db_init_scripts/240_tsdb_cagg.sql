@@ -1,7 +1,6 @@
+-- TimescaleDB continous aggregates. 
+-- Regularly sampled tables that can help in making queries faster. 
 
-BEGIN;
-
-DROP MATERIALIZED VIEW IF EXISTS ais.vessel_details_cagg CASCADE;
 CREATE MATERIALIZED VIEW ais.vessel_details_cagg WITH
 (timescaledb.continuous )
 AS
@@ -87,5 +86,3 @@ SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
     start_offset => INTERVAL '1 month',
     end_offset => INTERVAL '30 minutes',
     schedule_interval => INTERVAL '30 minutes');
-
-COMMIT;
