@@ -1,3 +1,16 @@
+# Docker Build and Test pipeline.
+# Insipiration from: https://blog.lwolf.org/post/how-to-build-and-test-docker-images-in-gitlab-ci/
+
+stages:
+  - build
+  - test
+  # - deploy
+
+default:
+  image: docker:latest
+  services:
+    - docker:dind
+
 # Build a Docker image with CI/CD and push to the GitLab registry.
 # Docker-in-Docker documentation: https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
 #
@@ -5,11 +18,7 @@
 # for the default branch and all other (MR) branches.
  
 docker-main-build:
-  # Use the official docker image.
-  image: docker:latest
   stage: build
-  services:
-    - docker:dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   # Default branch leaves tag empty (= latest tag)
@@ -19,7 +28,7 @@ docker-main-build:
       tag=""
       echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
     - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" .
-    - docker push "$CI_REGISTRY_IMAGE${tag}"\
+    - docker push "$CI_REGISTRY_IMAGE${tag}"
 
   # Run this job when in Main/Master and if a dockerfile exists.
   rules:
@@ -28,11 +37,7 @@ docker-main-build:
         - Dockerfile
  
 docker-staging-build:
-  # Use the official docker image.
-  image: docker:latest
   stage: build
-  services:
-    - docker:dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   # Default branch leaves tag empty (= latest tag)
@@ -49,3 +54,9 @@ docker-staging-build:
     - if: $CI_COMMIT_BRANCH  && $CI_COMMIT_BRANCH == "staging"
       exists:
         - Dockerfile-dev
+
+docker-testing:
+  stage: test
+  script:
+    - docker run -d --env-file=./config/sample.env $CI_REGISTRY_IMAGE${tag}
+
