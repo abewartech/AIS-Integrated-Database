@@ -95,10 +95,12 @@ AS
    SELECT 
     hour_cagg.mmsi,
     time_bucket('1 d'::interval, hour_cagg.bucket) AS bucket,
-	st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326) as geom,
-	st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)) as geom_length,
-	st_distance(first(position, hour_cagg.bucket), last(position, hour_cagg.bucket)) / nullif(st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)),0) as geom_sinuosity,
-	count(hour_cagg.bucket) as bucket_count
+    first(event_time, hour_cagg.bucket) AS traj_start_time,
+    last(event_time, hour_cagg.bucket) AS traj_end_time,
+    st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)) as geom_length,
+    st_distance(first(position, hour_cagg.bucket), last(position, hour_cagg.bucket)) / nullif(st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)),0) as geom_sinuosity,
+    count(hour_cagg.bucket) as bucket_count,
+    st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)::geometry(Linestring,4326) as geom
   FROM ais.hourly_pos_cagg as hour_cagg
   GROUP BY hour_cagg.mmsi, time_bucket('1 d'::interval, hour_cagg.bucket)
   WITH NO DATA;

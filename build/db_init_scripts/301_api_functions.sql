@@ -41,6 +41,6 @@ SELECT
 	aa.bucket_count,
 	aa.geom::geometry(Linestring, 4326)
 FROM ais.daily_30min_trajectories_cagg as aa
-ORDER BY aa.bucket DESC
+ORDER BY aa.bucket DESC;
 
 COMMENT ON VIEW postgis_ftw.traj IS 'Find daily ship trajectories.';
