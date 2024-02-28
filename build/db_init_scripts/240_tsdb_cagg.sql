@@ -86,3 +86,24 @@ SELECT add_continuous_aggregate_policy('ais.daily_pos_cagg',
     start_offset => INTERVAL '1 month',
     end_offset => INTERVAL '30 minutes',
     schedule_interval => INTERVAL '30 minutes');
+
+
+DROP MATERIALIZED VIEW IF EXISTS ais.daily_30min_trajectories_cagg CASCADE;
+CREATE MATERIALIZED VIEW ais.daily_30min_trajectories_cagg WITH
+(timescaledb.continuous )
+AS
+   SELECT 
+    hour_cagg.mmsi,
+    time_bucket('1 d'::interval, hour_cagg.bucket) AS bucket,
+	st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326) as geom,
+	st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)) as geom_length,
+	st_distance(first(position, hour_cagg.bucket), last(position, hour_cagg.bucket)) / nullif(st_length(st_setsrid(st_makeline(hour_cagg.position ORDER BY hour_cagg.bucket), 4326)),0) as geom_sinuosity,
+	count(hour_cagg.bucket) as bucket_count
+  FROM ais.hourly_pos_cagg as hour_cagg
+  GROUP BY hour_cagg.mmsi, time_bucket('1 d'::interval, hour_cagg.bucket)
+  WITH NO DATA;
+
+SELECT add_continuous_aggregate_policy('ais.daily_30min_trajectories_cagg',
+    start_offset => INTERVAL '1 month',
+    end_offset => INTERVAL '12 hours',
+    schedule_interval => INTERVAL '1 day');
