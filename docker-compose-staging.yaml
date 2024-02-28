@@ -25,7 +25,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-staging
-    container_name: ${DB_HOST}
+    container_name: database
     user: ${UID}:${GID}
     shm_size: 4g
     command: postgres -c shared_preload_libraries=timescaledb
@@ -50,6 +50,7 @@ services:
     # Volume commented out to test building of DB. 
     # Uncomment when requiring persistance
       # - ./volumes/db/:/var/lib/postgresql/data
+      - POSTGRES_DB:/var/lib/postgresql/data
       - ./volumes/db_init_data/:/tmp/db_init_ais_data/
       
   
@@ -68,13 +69,13 @@ services:
       - ${API_PORT}:9000
     logging: *default-logging
     environment:
-      - DATABASE_URL=postgresql://api:Secure_API_Password@${DB_HOST}/${DB_NAME}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}/${DB_NAME}
+      # - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}/${DB_NAME}
 
 #===============================
-# volumes:
+volumes:
 #===============================
-#   rabbit_data:
-#   rabbit_etc:
+  POSTGRES_DB:
 
 #===============================
 networks:
