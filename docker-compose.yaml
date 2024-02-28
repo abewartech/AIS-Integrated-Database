@@ -61,7 +61,7 @@ services:
     image: pramsey/pg_featureserv:${PGFEATSERV_TAG}
     container_name: featserv
     restart: unless-stopped
-    command: "--config /app/config.toml"
+    # command: "--config /app/config.toml"
     depends_on:
       database:
         condition: service_healthy
@@ -73,8 +73,14 @@ services:
     environment:
       # - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database/${DB_NAME}
       - DATABASE_URL=postgresql://${API_USER}:${API_PW}@database/${DB_NAME}
-    volumes:
-      - ./config/feat_serv_config.toml:/app/config.toml:ro
+      - PGFS_METADATA_TITLE=OpenAIS
+      - PGFS_METADATA_DESCRIPTION="OpenAIS Feature Server"
+      - PGFS_WEBSITE_BASEMAPURL="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+      - PGFS_PAGING_LIMITDEFAULT=1000
+      - PGFS_PAGING_LIMITMAX=10000
+      - PGFS_SERVER_CORSORIGINS="*"
+    # volumes:
+      # - ./config/feat_serv_config.toml:/app/config.toml:ro
 
 
 #===============================
