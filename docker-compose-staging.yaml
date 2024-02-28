@@ -36,7 +36,7 @@ services:
       - ${DB_EXT_PORT}:5432
     logging: *default-logging
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready --username=${POSTGRES_USER} --dbname=${DB_NAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,10 +46,12 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_UID=${UID}
       - POSTGRES_GID=${GID}
-    # volumes:
-    ## Volume commented out to test building of DB. 
-    ## Uncomment when requiring persistance
+    volumes:
+    # Volume commented out to test building of DB. 
+    # Uncomment when requiring persistance
       # - ./volumes/db/:/var/lib/postgresql/data
+      - ./volumes/db_init_data/:/tmp/db_init_ais_data/
+      
   
   featserv:
   # This is a template for a service that is not made available on the  

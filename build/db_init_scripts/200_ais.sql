@@ -9,17 +9,18 @@
 -- and extend it with TSDB "hypertable"
 CREATE TABLE ais.pos_reports (
     mmsi text NOT NULL,
-    navigation_status character varying(3),
+    navigation_status text,
     rot smallint,
     sog numeric(4,1),
     longitude double precision NOT NULL,
     latitude double precision NOT NULL,
-    "position" public.geometry,
+    --  public.geometry,
+    "position" geometry(Point, 4326),
     cog numeric(4,1),
     hdg numeric(4,1),
     event_time timestamp with time zone NOT NULL,
     server_time timestamp with time zone NOT NULL,
-    msg_type character varying(3),
+    msg_type text,
     routing_key text
 );
 
@@ -31,7 +32,7 @@ CREATE TABLE ais.voy_reports (
     imo text,
     callsign text,
     name text,
-    type_and_cargo character varying(3),
+    type_and_cargo text,
     to_bow smallint,
     to_stern smallint,
     to_port smallint,
@@ -46,49 +47,19 @@ CREATE TABLE ais.voy_reports (
     destination text,
     event_time timestamp with time zone NOT NULL,
     server_time timestamp with time zone NOT NULL,
-    msg_type character varying(3),
+    msg_type text,
     routing_key text
 );
 
 SELECT create_hypertable('ais.voy_reports', 'event_time');
 COMMENT ON TABLE ais.voy_reports IS 'Hypertable to store AIS voyage reports for Class A and B TRx.';
 
---
--- Name: ais_num_to_type; Type: TABLE; Schema: ais; Owner: vliz
---
-
--- CREATE TABLE ais.ais_num_to_type (
---     ais_num character varying(3) NOT NULL,
---     description text,
---     type text,
---     sub_type text,
---     abrv character varying(3) NOT NULL
--- );
--- COMMENT ON TABLE ais.ais_num_to_type IS 'Lookup table to store AIS Type and Cargo definitions for 2 digit AIS number code.';
-
--- --
--- -- Name: mid_to_country; Type: TABLE; Schema: ais; Owner: vliz
--- --
-
--- CREATE TABLE ais.mid_to_country (
---     country text NOT NULL,
---     country_abrv0 text,
---     country_abrv1 text,
---     country_abrv2 text,
---     mid character varying(3) NOT NULL,
---     flag_link text
--- );
--- COMMENT ON TABLE ais.mid_to_country IS 'Lookup table to store MID Country Code, from first 3 digits of MMSI.';
--- --
--- -- Name: latest_voy_reports; Type: TABLE; Schema: ais; Owner: vliz
--- --
-
 CREATE TABLE ais.latest_voy_reports (
     mmsi text,
     imo text,
     callsign text,
     name text,
-    type_and_cargo character varying(3),
+    type_and_cargo text,
     to_bow smallint,
     to_stern smallint,
     to_port smallint,
@@ -103,7 +74,7 @@ CREATE TABLE ais.latest_voy_reports (
     destination text,
     event_time timestamp with time zone,
     server_time timestamp with time zone,
-    msg_type character varying(3),
+    msg_type text,
     routing_key text,
     CONSTRAINT mmsi_rkey UNIQUE (mmsi, routing_key));
 COMMENT ON TABLE ais.latest_voy_reports IS 'Summary table for the latest voyage report, per mmsi, per routing key.';
@@ -123,7 +94,7 @@ COMMENT ON TABLE ais.trajectories IS 'Derived trajectories for vessels. AIS poin
 CREATE TABLE ais.vessel_density_agg (
     gid double precision,
     event_date date,
-    type_and_cargo character varying,
+    type_and_cargo text,
     cardinal_seg numeric,
     sog_bin numeric,
     track_count bigint,
