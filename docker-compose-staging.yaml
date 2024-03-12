@@ -36,7 +36,11 @@ services:
       - ${DB_EXT_PORT}:5432
     logging: *default-logging
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready --username=${POSTGRES_USER} --dbname=${DB_NAME}"]
+      test:
+        - CMD-SHELL
+        - '[ -f /home/postgres/pgdata/data/ready ]'
+        - pg_isready --username=${POSTGRES_USER} --dbname=${POSTGRES_DB}
+      start_period: 5m # needs a long start period when downloading shapes during initialization
       interval: 10s
       timeout: 5s
       retries: 5
@@ -50,8 +54,8 @@ services:
     # Volume commented out to test building of DB. 
     # Uncomment when requiring persistance
       # - ./volumes/db/:/var/lib/postgresql/data
-      - POSTGRES_DB:/var/lib/postgresql/data
-      - ./volumes/db_init_data/:/tmp/db_init_ais_data/
+      - POSTGRES_DB:/home/postgres/pgdata/data
+      - ./build/db_init_data/:/tmp/db_init_ais_data/
       
   
   featserv:
