@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Check if FETCH_GEOM environment variable exists
+# and is anything other than "false"
+runscript="${FETCH_GEOM:-False}"
+if [ $runscript = "False" ]; then
+   echo "--- Skipping all GEOM downloads..."
+   echo $runscript
+   exit 0
+fi
+
 mkdir -p /tmp/shapes/
 mkdir -p /tmp/unzips/
 rm -rf /tmp/unzips/*
@@ -101,12 +110,16 @@ fetch_geo \
     'SAMPAZ_OR_2021_Q1.shp' \
     'https://sfiler.environment.gov.za:8443/ssf/s/readFile/folderEntry/40950/8afbc1c77a484088017a5d45cb4202e6/1624344206000/last/SAMPAZ_OR_2021_Q1.zip'
 
+
+# Alternate for this File if naturalearthdata isn't working:
+    # https://naturalearth.s3.amazonaws.com/50m_cultural/ne_50m_admin_0_countries.zip
+    # 'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip' \
 fetch_geo \
     'Admin Boundaries for Countries' \
-    'admin_0_countriesd_eez' \
+    'admin_0_countries' \
     'country.zip' \
     'ne_50m_admin_0_countries.shp' \
-    'https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_countries.zip' \
+    'https://naturalearth.s3.amazonaws.com/50m_cultural/ne_50m_admin_0_countries.zip' \
     'https://www.naturalearthdata.com/'
 
 
