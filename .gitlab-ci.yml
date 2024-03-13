@@ -53,7 +53,7 @@ docker-staging-build:
   rules:
     - if: $CI_COMMIT_BRANCH  && $CI_COMMIT_BRANCH == "staging"
       exists:
-        - Dockerfile-staging
+        - Dockerfile
 
 docker-testing:
   stage: test

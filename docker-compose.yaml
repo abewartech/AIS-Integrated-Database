@@ -24,7 +24,7 @@ services:
   # https://github.com/timescale/timescaledb-docker-ha
     build: 
       context: .
-      dockerfile: Dockerfile-staging
+      dockerfile: Dockerfile
     container_name: database
     user: ${UID}:${GID}
     shm_size: 4g
@@ -36,8 +36,12 @@ services:
       - ${DB_EXT_PORT}:5432
     logging: *default-logging
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready --username=${POSTGRES_USER} --dbname=${DB_NAME}"]
-      interval: 10s
+      test:
+        - CMD-SHELL
+        - '[ -f /home/postgres/pgdata/data/ready ]'
+        - pg_isready --username=${POSTGRES_USER} --dbname=${POSTGRES_DB}
+      start_period: 10m # needs a long start period when downloading shapes during initialization
+      interval: 1m
       timeout: 5s
       retries: 5
     environment:
@@ -46,13 +50,13 @@ services:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_UID=${UID}
       - POSTGRES_GID=${GID}
+      - FETCH_GEOM=${FETCH_GEOM}
     volumes:
     # Volume commented out to test building of DB. 
-    # Uncomment when requiring persistance
-      # - ./volumes/db/:/var/lib/postgresql/data
-
-      - db_volume:/var/lib/postgresql/data
-      - ./volumes/db_init_data/:/tmp/db_init_ais_data/
+    # Uncomment when requiring persistance 
+      # - db_volume:/home/postgres/pgdata/data
+      - ./build/db_init_data/:/tmp/db_init_ais_data/:ro
+      - db_shapes:/tmp/shapes/:rw
 
   
   featserv:
@@ -75,7 +79,7 @@ services:
       - DATABASE_URL=postgresql://${API_USER}:${API_PW}@database/${DB_NAME}
       - PGFS_METADATA_TITLE=OpenAIS
       - PGFS_METADATA_DESCRIPTION="OpenAIS Feature Server"
-      - PGFS_WEBSITE_BASEMAPURL="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+      - PGFS_WEBSITE_BASEMAPURL=https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
       - PGFS_PAGING_LIMITDEFAULT=1000
       - PGFS_PAGING_LIMITMAX=10000
       - PGFS_SERVER_CORSORIGINS="*"
@@ -87,6 +91,7 @@ services:
 volumes:
 #=============================== 
   db_volume:
+  db_shapes:
 
 #===============================
 networks:
