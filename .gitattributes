@@ -1,0 +1,2 @@
+build/db/db_init_data/WPI_Shapefile/WPI.dbf filter=lfs diff=lfs merge=lfs -text
+build/db/db_init_data/World_EEZ_v10_20180221/eez_v10.shp filter=lfs diff=lfs merge=lfs -text
